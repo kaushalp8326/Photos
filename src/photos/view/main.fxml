@@ -8,13 +8,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ListView prefHeight="400.0" prefWidth="269.0" />
+      <ListView fx:id="listAlbums" prefHeight="400.0" prefWidth="269.0" />
       <AnchorPane prefHeight="400.0" prefWidth="236.0">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="183.0" text="Album Name" textAlignment="CENTER">
+            <Label fx:id="lblAlbum" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="183.0" text="Album Name" textAlignment="CENTER">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
