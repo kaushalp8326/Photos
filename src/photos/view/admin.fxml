@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView fx:id="lstUsers" prefHeight="185.0" prefWidth="191.0" />
+      <AnchorPane prefHeight="185.0" prefWidth="191.0">
+         <children>
+            <Button fx:id="cmdCreateUser" layoutX="29.0" layoutY="44.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Create User" />
+            <Button fx:id="cmdDeleteUser" layoutX="29.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Delete User" />
+            <Button fx:id="cmdAdminLogout" layoutX="29.0" layoutY="116.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Logout" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
