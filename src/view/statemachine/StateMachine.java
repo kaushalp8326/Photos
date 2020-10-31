@@ -1,6 +1,8 @@
 package view.statemachine;
 
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+import view.controller.LoginController;
 
 /**
  * State machine representation of the Photos application.
@@ -14,6 +16,8 @@ public class StateMachine {
 	 * Login screen state
 	 */
 	protected LoginState loginState;
+	protected LoginController loginController;
+	protected Stage loginStage;
 	
 	/**
 	 * Admin subsystem state
@@ -62,6 +66,12 @@ public class StateMachine {
 		albumState = AlbumState.getInstance();
 		addPhotoState = AddPhotoState.getInstance();
 		slideshowState = SlideshowState.getInstance();
+		
+		loginState.setStateMachine(this);
+		// TODO - the other controllers
+		
+		loginStage = new Stage();
+		// TODO - the other stages
 		
 		currentState = loginState;
 		loginState.enter();
