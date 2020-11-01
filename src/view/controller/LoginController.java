@@ -1,5 +1,6 @@
 package view.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,11 +12,19 @@ import view.statemachine.StateMachine;
  * @author Kaushal Patel
  *
  */
-public class LoginController {
+public class LoginController extends PhotosController {
 	
 	// FXML entities
-	@FXML protected TextField txtUsername;
-	@FXML protected Button cmdLogin;
-	@FXML protected Button cmdQuit;
+	@FXML public TextField txtUsername;
+	@FXML public Button cmdLogin;
+	@FXML public Button cmdQuit;
+	
+	@FXML private void cmdLoginPressed(ActionEvent e) {
+		stateMachine.processEvent(e);
+	}
+	
+	@FXML private void cmdQuitPressed(ActionEvent e) {
+		// TODO
+	}
 	
 }

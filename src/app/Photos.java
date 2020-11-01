@@ -15,8 +15,7 @@ import view.statemachine.StateMachine;
 public class Photos extends Application implements Serializable{
 
 	public void start(Stage mainStage) {
-		StateMachine sm = new StateMachine();
-		sm.start();
+		StateMachine.getInstance().start();
 	}
 	
 	public static void main(String[] args) {

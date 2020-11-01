@@ -16,8 +16,6 @@ public class StateMachine {
 	 * Login screen state
 	 */
 	protected LoginState loginState;
-	protected LoginController loginController;
-	protected Stage loginStage;
 	
 	/**
 	 * Admin subsystem state
@@ -55,6 +53,26 @@ public class StateMachine {
 	protected PhotosState currentState;
 	
 	/**
+	 * Singleton instance of this state machine.
+	 */
+	private static StateMachine instance;
+	
+	/**
+	 * Disallow instantiation so there is only one instance of this machine
+	 */
+	private StateMachine() {}
+	
+	/**
+	 * Get the single state machine instance.
+	 */
+	public static StateMachine getInstance() {
+		if(instance == null) {
+			instance = new StateMachine();
+		}
+		return instance;
+	}
+	
+	/**
 	 * Start the state machine by loading each state. Enters at the "login" state.
 	 */
 	public void start() {
@@ -66,12 +84,6 @@ public class StateMachine {
 		albumState = AlbumState.getInstance();
 		addPhotoState = AddPhotoState.getInstance();
 		slideshowState = SlideshowState.getInstance();
-		
-		loginState.setStateMachine(this);
-		// TODO - the other controllers
-		
-		loginStage = new Stage();
-		// TODO - the other stages
 		
 		currentState = loginState;
 		loginState.enter();
@@ -86,6 +98,7 @@ public class StateMachine {
     public void processEvent(ActionEvent e) {
         PhotosState.lastEvent = e; 
         currentState = currentState.processEvent();
+        currentState.enter();
     }
 	
 }

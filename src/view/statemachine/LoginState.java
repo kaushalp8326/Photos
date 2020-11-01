@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.controller.LoginController;
 
@@ -20,14 +21,25 @@ public class LoginState extends PhotosState{
 	 */
 	public static LoginController loginController;
 	
-	// Instance of the overall state machine
-	private StateMachine stateMachine;
+	/**
+	 * Returns singleton instance.
+	 * 
+	 * @return Singleton instance
+	 */
+	public static LoginState getInstance() {
+		if(instance == null) {
+			instance = new LoginState();
+		}
+		return instance;
+	}
 	
 	/**
 	 * Prevents instantiation, to implement singleton pattern.
 	 */
-	private LoginState() { 
-		// TODO
+	private LoginState() {
+		stage = new Stage();
+		stage.setTitle("Login");
+		stage.setResizable(false);
 	}
 	
 	/**
@@ -50,38 +62,33 @@ public class LoginState extends PhotosState{
 		
 		// show the window
 		Scene mainScene = new Scene(root);
-		stateMachine.loginStage = new Stage();
-		{
-			Stage s = stateMachine.loginStage;
-			s.setScene(mainScene);
-			s.setTitle("Login");
-			s.setResizable(false);
-			s.show();
-		}
+		stage.setScene(mainScene);
+		stage.show();
 	}
 	
+	/**
+	 * Process an event from the login screen.
+	 * If the user logs in and the username is "admin", go to the admin subsystem.
+	 * TODO If the user enters a different existing username, go to that user's home screen.
+	 * TODO If a nonexistent username is entered, show an error dialog.
+	 * If the user quits, terminate the program.
+	 */
 	public PhotosState processEvent() {
-		return null;
-	}
-	
-	/**
-	 * Assign this state an instance of the overall state machine.
-	 * @param sm State machine
-	 */
-	public void setStateMachine(StateMachine sm) {
-		this.stateMachine = sm;
-	}
-	
-	/**
-	 * Returns singleton instance.
-	 * 
-	 * @return Singleton instance
-	 */
-	public static LoginState getInstance() {
-		if(instance == null) {
-			instance = new LoginState();
+		
+		Button b = (Button)lastEvent.getSource();
+		
+		if(b == loginController.cmdLogin) {
+			// Admin
+			if(loginController.txtUsername.getText().equals("admin")) {
+				
+				return stateMachine.adminState;
+			}
+			// TODO - other usernames
 		}
-		return instance;
+		
+		// TODO - quit, which probably requires a StateMachine.exit() method
+		return null;
+		
 	}
 	
 }
