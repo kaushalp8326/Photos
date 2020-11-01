@@ -1,7 +1,5 @@
 package app;
 
-import java.io.Serializable;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.statemachine.StateMachine;
@@ -12,7 +10,7 @@ import view.statemachine.StateMachine;
  * @author Kaushal Patel
  *
  */
-public class Photos extends Application implements Serializable{
+public class Photos extends Application {
 
 	public void start(Stage mainStage) {
 		StateMachine.getInstance().start();
