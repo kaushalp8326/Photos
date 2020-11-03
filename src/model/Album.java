@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,39 @@ public class Album {
 		return pictures.size();
 	}
 	
-	// TODO public T getEarliestDate(){}
+	/**
+	 * Find the earliest picture timestamp in this album.
+	 * @return LocalDateTime instance representing the earliest timestamp.
+	 */
+	public LocalDateTime getEarliestTimestamp() {
+		if(pictures.size() == 0) {
+			return null;
+		}
+		LocalDateTime earliest = pictures.get(0).getTimestamp();
+		for(Picture p : pictures) {
+			if(p.getTimestamp().compareTo(earliest) < 0){
+				earliest = p.getTimestamp();
+			}
+		}
+		return earliest;
+	}
 	
-	// TODO public T getLatestDate(){}
+	/**
+	 * Find the latest picture timestamp in this album.
+	 * @return LocalDateTime instance representing the earliest timestamp.
+	 */
+	public LocalDateTime getLatestTimestamp() {
+		if(pictures.size() == 0) {
+			return null;
+		}
+		LocalDateTime latest = pictures.get(0).getTimestamp();
+		for(Picture p : pictures) {
+			if(p.getTimestamp().compareTo(latest) > 0){
+				latest = p.getTimestamp();
+			}
+		}
+		return latest;
+	}
 	
 	/**
 	 * Base constructor for the album. Gives the album a name without adding any pictures.

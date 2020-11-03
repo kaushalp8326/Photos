@@ -3,6 +3,9 @@ package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 import javafx.scene.image.Image;
 
@@ -24,8 +27,7 @@ public class Picture {
 	// public HashMap<T,U> tags;
 	// TODO do we want a Tag class?
 	
-	// private T timestamp;
-	// TODO idk what type to use here
+	private LocalDateTime timestamp;
 	
 	/**
 	 * Picture constructor. Loads the image from the file system given a path.
@@ -34,7 +36,7 @@ public class Picture {
 		this.path = path;
 		this.image = new Image(new FileInputStream(path)); // possible FNFE here
 		long time = new File(path).lastModified(); // and here
-		// this.timestamp = somefunction(time);
+		this.timestamp = LocalDateTime.ofInstant(Instant.ofEpochMilli(time), TimeZone.getDefault().toZoneId());
 	}
 	
 	/**
@@ -46,11 +48,19 @@ public class Picture {
 	}
 	
 	/**
-	 * Fetch this picture's Image representation.
-	 * @return This picture's Image.
+	 * Fetch this picture's {@code Image} representation.
+	 * @return This picture's {@code Image}.
 	 */
 	public Image getImage() {
 		return image;
+	}
+	
+	/**
+	 * Fetch this picture's timestamp.
+	 * @return Timestamp as a {@code LocalDateTime} object.
+	 */
+	public LocalDateTime getTimestamp() {
+		return timestamp;
 	}
 	
 }
