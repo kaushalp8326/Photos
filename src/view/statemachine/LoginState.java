@@ -36,11 +36,7 @@ public class LoginState extends PhotosState{
 	/**
 	 * Prevents instantiation, to implement singleton pattern.
 	 */
-	private LoginState() {
-		stage = new Stage();
-		stage.setTitle("Login");
-		stage.setResizable(false);
-	}
+	private LoginState() {}
 	
 	/**
 	 * Activates the controller for this state.
@@ -59,11 +55,15 @@ public class LoginState extends PhotosState{
 		
 		// get controller
 		loginController = loader.getController();
+		loginController.start();
 		
 		// show the window
 		Scene mainScene = new Scene(root);
-		stage.setScene(mainScene);
-		stage.show();
+		loginController.stage = new Stage();
+		loginController.stage.setTitle("Login");
+		loginController.stage.setResizable(false);
+		loginController.stage.setScene(mainScene);
+		loginController.stage.show();
 	}
 	
 	/**

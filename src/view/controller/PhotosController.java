@@ -1,5 +1,6 @@
 package view.controller;
 
+import javafx.stage.Stage;
 import view.statemachine.StateMachine;
 
 /**
@@ -11,5 +12,11 @@ import view.statemachine.StateMachine;
 public abstract class PhotosController {
 	
 	protected static StateMachine stateMachine = StateMachine.getInstance();
+	
+	/**
+	 * A particular controller's corresponding stage.
+	 * Each controller gets its own stage.
+	 */
+	public Stage stage;
 
 }

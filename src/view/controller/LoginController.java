@@ -19,12 +19,10 @@ public class LoginController extends PhotosController {
 	@FXML public Button cmdLogin;
 	@FXML public Button cmdQuit;
 	
-	@FXML private void cmdLoginPressed(ActionEvent e) {
-		stateMachine.processEvent(e);
-	}
+	public void start() {}
 	
-	@FXML private void cmdQuitPressed(ActionEvent e) {
-		// TODO
+	@FXML private void processEvent(ActionEvent e) {
+		stateMachine.processEvent(e);
 	}
 	
 }

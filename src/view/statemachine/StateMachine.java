@@ -2,6 +2,7 @@ package view.statemachine;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import model.User;
 import view.controller.LoginController;
 
 /**
@@ -53,6 +54,11 @@ public class StateMachine {
 	protected PhotosState currentState;
 	
 	/**
+	 * Instance of the current user. When a user logs in, this object is loaded from serialized data.
+	 */
+	protected User currentUser;
+	
+	/**
 	 * Singleton instance of this state machine.
 	 */
 	private static StateMachine instance;
@@ -97,8 +103,11 @@ public class StateMachine {
      */
     public void processEvent(ActionEvent e) {
         PhotosState.lastEvent = e; 
-        currentState = currentState.processEvent();
-        currentState.enter();
+        PhotosState next = currentState.processEvent();
+        if(next != null) { // null = no state change
+	        currentState = next;
+	        currentState.enter();
+        }
     }
 	
 }

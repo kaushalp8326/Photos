@@ -16,12 +16,6 @@ public abstract class PhotosState {
 	static ActionEvent lastEvent;
 	
 	/**
-	 * A particular state's corresponding stage.
-	 * Each state gets its own stage.
-	 */
-	protected Stage stage;
-	
-	/**
 	 * This method is overridden by each subclass with a state-specific implementation.
 	 * It is called when a state is entered.
 	 */
