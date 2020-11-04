@@ -41,6 +41,35 @@ public class HomeController extends PhotosController {
 	// Sorted wrapper list
 	private ObservableList<Album> albums;
 	
+	// Selected list index
+	private int selectedIndex;
+	
+	/**
+	 * Display attributes of the highlighted album.
+	 */
+	private void showAlbumData() {
+		if(olist.size() == 0) {
+			lblAlbum.setText("No Album Data Found");
+			lblSize.setText("");
+			lblEarliestUpload.setText("");
+			lblLatestUpload.setText("");
+			return;
+		}
+		
+		Album a = lstAlbums.getSelectionModel().getSelectedItem();
+		
+		// Display data
+		lblAlbum.setText(a.name);
+		lblSize.setText("Size: " + a.getSize());
+		if(a.getSize() == 0) {
+			lblEarliestUpload.setText("Earliest Upload: None");
+			lblLatestUpload.setText("Latest Upload: None");
+		}else {
+			lblEarliestUpload.setText("Earliest Upload: " + a.getEarliestTimestamp());
+			lblLatestUpload.setText("Latest Upload: " + a.getLatestTimestamp());
+		}
+	}
+		
 	/**
 	 * Imports the list of albums from the current user and displays them.
 	 */
@@ -66,6 +95,12 @@ public class HomeController extends PhotosController {
                 }
             }
         });
+		
+		lstAlbums
+			.getSelectionModel()
+			.selectedIndexProperty()
+			.addListener((obs, oldVal, newVal) -> showAlbumData());
+		lstAlbums.getSelectionModel().select(selectedIndex);
 		
 	}
 	

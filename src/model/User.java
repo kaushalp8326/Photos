@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class User implements Serializable {
 	
-	private static final long serialVersionID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	// Data file path
 	public String path;
@@ -48,8 +48,12 @@ public class User implements Serializable {
 		if(f.exists()) {
 			throw new IllegalArgumentException();
 		}
-		f.createNewFile(); // possible IOException here
-		save();			   // and here
+		try {
+			f.createNewFile();
+			save();
+		}catch(IOException e) {
+			throw new IOException();
+		}
 	}
 	
 	/**

@@ -103,6 +103,7 @@ public class LoginState extends PhotosState{
 				alert.showAndWait();
 				return null;
 			}
+			loginController.stage.close();
 			return stateMachine.homeState;
 			
 		}

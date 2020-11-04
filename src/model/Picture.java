@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
@@ -15,7 +16,9 @@ import javafx.scene.image.Image;
  * @author Kaushal Patel
  *
  */
-public class Picture {
+public class Picture implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String path;
 	

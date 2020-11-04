@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.List;
  * @author Kaushal Patel
  *
  */
-public class Album {
-
+public class Album implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Album name.
 	 */
@@ -65,9 +68,16 @@ public class Album {
 	
 	/**
 	 * Base constructor for the album. Gives the album a name without adding any pictures.
+	 * Doesn't allow for two albums owned by the same user to have the same name.
 	 * @param name Name for the album.
+	 * @param user The album's owner.
 	 */
-	public Album(String name) {
+	public Album(String name, User user) throws IllegalArgumentException {
+		for(Album a: user.albums) {
+			if(a.name.equals(name)) {
+				throw new IllegalArgumentException();
+			}
+		}
 		this.name = name;
 	}
 	
@@ -77,8 +87,8 @@ public class Album {
 	 * @param name Name for the album.
 	 * @param pictures List of pictures that will be added to this album.
 	 */
-	public Album(String name, List<Picture> pictures) {
-		this(name);
+	public Album(String name, User user, List<Picture> pictures) throws IllegalArgumentException {
+		this(name, user);
 		this.pictures.addAll(pictures);
 	}
 	
