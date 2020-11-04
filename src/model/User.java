@@ -18,6 +18,8 @@ import java.util.ArrayList;
  *
  */
 public class User implements Serializable {
+	
+	private static final long serialVersionID = 1L;
 
 	// Data file path
 	public String path;
@@ -41,6 +43,7 @@ public class User implements Serializable {
 	public User(String name) throws IllegalArgumentException, IOException {
 		this.name = name;
 		this.path = "user/" + name + ".dat";
+		this.albums = new ArrayList<Album>();
 		File f = new File(path);
 		if(f.exists()) {
 			throw new IllegalArgumentException();

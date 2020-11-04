@@ -8,9 +8,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.HomeController">
    <children>
-      <ListView fx:id="listAlbums" prefHeight="400.0" prefWidth="269.0" />
+      <ListView fx:id="lstAlbums" prefHeight="400.0" prefWidth="269.0" />
       <AnchorPane prefHeight="400.0" prefWidth="236.0">
          <children>
             <Label fx:id="lblAlbum" layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="183.0" text="Album Name" textAlignment="CENTER">
@@ -22,16 +22,16 @@
             <Label fx:id="lblEarliestUpload" layoutX="14.0" layoutY="54.0" prefHeight="20.0" prefWidth="183.0" text="Earliest Upload:" textAlignment="CENTER" />
             <Label fx:id="lblLatestUpload" layoutX="14.0" layoutY="74.0" prefHeight="20.0" prefWidth="183.0" text="Latest Upload:" textAlignment="CENTER" />
             <Line endX="100.0" layoutX="105.0" layoutY="109.0" startX="-100.0" />
-            <Button fx:id="cmdCreateAlbum" layoutX="32.0" layoutY="118.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Create Album" />
-            <Button fx:id="cmdRenameAlbum" layoutX="32.0" layoutY="152.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Rename Album" />
-            <Button fx:id="cmdDeleteAlbum" layoutX="31.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Delete Album" />
+            <Button fx:id="cmdCreateAlbum" layoutX="32.0" layoutY="118.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Create Album" />
+            <Button fx:id="cmdRenameAlbum" layoutX="32.0" layoutY="152.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Rename Album" />
+            <Button fx:id="cmdDeleteAlbum" layoutX="31.0" layoutY="187.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Delete Album" />
             <Line endX="100.0" layoutX="105.0" layoutY="223.0" startX="-100.0" />
-            <Button fx:id="cmdOpenAlbum" layoutX="32.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Open Album..." />
-            <Button fx:id="cmdFindPhotosByTag" layoutX="32.0" layoutY="267.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Find Photos by Tag..." />
-            <Button fx:id="cmdFindPhotosByDate" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Find Photos by Date..." />
+            <Button fx:id="cmdOpenAlbum" layoutX="32.0" layoutY="232.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Open Album..." />
+            <Button fx:id="cmdFindPhotosByTag" layoutX="32.0" layoutY="267.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Find Photos by Tag..." />
+            <Button fx:id="cmdFindPhotosByDate" layoutX="32.0" layoutY="300.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Find Photos by Date..." />
             <Line endX="100.0" layoutX="106.0" layoutY="337.0" startX="-100.0" />
-            <Button fx:id="cmdLogOut" layoutX="33.0" layoutY="346.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Log Out" />
-            <Button fx:id="cmdQuit" layoutX="33.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Quit" />
+            <Button fx:id="cmdLogout" layoutX="33.0" layoutY="346.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Log Out" />
+            <Button fx:id="cmdQuit" layoutX="33.0" layoutY="381.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="148.0" text="Quit" />
          </children>
       </AnchorPane>
    </children>

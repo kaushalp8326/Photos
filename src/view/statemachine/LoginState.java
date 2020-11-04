@@ -5,8 +5,11 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.User;
 import view.controller.LoginController;
 
 public class LoginState extends PhotosState{
@@ -78,12 +81,30 @@ public class LoginState extends PhotosState{
 		Button b = (Button)lastEvent.getSource();
 		
 		if(b == loginController.cmdLogin) {
+			
+			String username = loginController.txtUsername.getText();
+			
 			// Admin
-			if(loginController.txtUsername.getText().equals("admin")) {
-				
+			if(username.equals("admin")) {
+				loginController.stage.close();
 				return stateMachine.adminState;
 			}
-			// TODO - other usernames
+			
+			// Non-admin user - attempt to load the user from file.
+			// On success, move to the home screen.
+			try {
+				stateMachine.currentUser = User.load(username);
+			}catch(ClassNotFoundException | IOException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.initOwner(loginController.stage);
+				alert.setTitle("Login Error");
+				alert.setHeaderText("");
+				alert.setContentText("Your username did not match any existing users.");
+				alert.showAndWait();
+				return null;
+			}
+			return stateMachine.homeState;
+			
 		}
 		
 		// TODO - quit, which probably requires a StateMachine.exit() method

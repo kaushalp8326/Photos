@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import model.User;
@@ -50,10 +51,12 @@ public class AdminController extends PhotosController {
 		// This should never break unless someone mucks about in the user folder
 		File dir = new File("user");
 		File[] users = dir.listFiles();
-		for(File f: users) {
-			String fname = f.getName();
-			if(fname.endsWith(".dat")) {
-				olist.add(fname.substring(0,fname.length()-4));
+		if(users != null) {
+			for(File f: users) {
+				String fname = f.getName();
+				if(fname.endsWith(".dat")) {
+					olist.add(fname.substring(0,fname.length()-4));
+				}
 			}
 		}
 		
@@ -90,10 +93,33 @@ public class AdminController extends PhotosController {
 			alert.setTitle("Save Data Error");
 			alert.setHeaderText("");
 			alert.setContentText("Unable to create new user.");
+			alert.showAndWait();
 			return;
 		}
 		
 		olist.add(user.name);
+		
+	}
+	
+	/**
+	 * Delete the selected user by deleting their corresponding save file.
+	 */
+	public void deleteUser() {
+		String target = lstUsers.getSelectionModel().getSelectedItem();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.initOwner(stage);
+		alert.setTitle("Delete user");
+		alert.setHeaderText("");
+		alert.setContentText("Are you sure you want to delete user \"" + target + "\"?");
+		
+		Optional<ButtonType> response = alert.showAndWait();
+		if(response.isPresent() && response.get() == ButtonType.CANCEL) {
+			return;
+		}
+		
+		File f = new File("user/" + target + ".dat");
+		f.delete();
+		olist.remove(target);
 		
 	}
 	

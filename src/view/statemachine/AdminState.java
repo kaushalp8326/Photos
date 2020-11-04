@@ -77,11 +77,13 @@ public class AdminState extends PhotosState{
 		
 		if(b == adminController.cmdCreateUser) {
 			adminController.createUser();
-			return null;
+			
 		}else if(b == adminController.cmdDeleteUser) {
-			// TODO
+			adminController.deleteUser();
+			
 		}else if(b == adminController.cmdLogout) {
-			// TODO
+			adminController.stage.close();
+			return stateMachine.loginState;
 		}
 		
 		return null;

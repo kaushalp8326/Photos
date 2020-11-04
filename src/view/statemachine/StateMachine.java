@@ -56,7 +56,7 @@ public class StateMachine {
 	/**
 	 * Instance of the current user. When a user logs in, this object is loaded from serialized data.
 	 */
-	protected User currentUser;
+	public User currentUser;
 	
 	/**
 	 * Singleton instance of this state machine.
