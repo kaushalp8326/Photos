@@ -97,7 +97,7 @@ public class AdminController extends PhotosController {
 			return;
 		}
 		
-		olist.add(user.name);
+		olist.add(user.getName());
 		
 	}
 	

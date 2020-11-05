@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User class that functions mostly as a wrapper class for several albums.
@@ -27,12 +28,39 @@ public class User implements Serializable {
 	/**
 	 * User's name.
 	 */
-	public String name;
+	private String name;
 
 	/**
-	 * List of the user's albums.
+	 * List of the user's albums. Hidden outside this package.
 	 */
-	public ArrayList<Album> albums;
+	protected ArrayList<Album> albums;
+	
+	/**
+	 * Get this user's username
+	 * @return The username.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Get a read-only copy of this user's albums. The albums themselves are mutable,
+	 * but adds and deletes are not allowed.
+	 * @return An unmodifiable {@code List} instance containing each album this user owns.
+	 */
+	public List<Album> getAlbums(){
+		return List.copyOf(albums);
+	}
+	
+	/**
+	 * Creates a new album for this user. A user cannot own two albums with the same name.
+	 * @param name Album name.
+	 * @return Instance of the new Album.
+	 */
+	public Album createAlbum(String name) {
+		Album a = new Album(name, this);
+		return a;
+	}
 	
 	/**
 	 * Create a new user by name. Doesn't allow two users with the same name on the same machine.

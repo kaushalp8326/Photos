@@ -18,7 +18,12 @@ public class Album implements Serializable {
 	/**
 	 * Album name.
 	 */
-	public String name;
+	private String name;
+	
+	/**
+	 * Instance of the user that owns this album.
+	 */
+	private User owner;
 	
 	/**
 	 * List of pictures that are contained by this album.
@@ -27,9 +32,34 @@ public class Album implements Serializable {
 	
 	/**
 	 * A more direct way of accessing this album's size, rather than referencing {@code this.pictures}.
+	 * @return The number of pictures in this album.
 	 */
 	public int getSize() {
 		return pictures.size();
+	}
+	
+	/**
+	 * Access this album's name.
+	 * @return Album name
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Renames this album as long as the new name does not conflict with another one
+	 * of this user's albums.
+	 * @param name New album name.
+	 * @return {@code true} if the name is set successfully, {@code false} otherwise.
+	 */
+	public boolean setName(String name) {
+		for(Album a: owner.albums) {
+			if(a.name.equals(name)) {
+				return false;
+			}
+		}
+		this.name = name;
+		return true;
 	}
 	
 	/**
@@ -51,7 +81,7 @@ public class Album implements Serializable {
 	
 	/**
 	 * Find the latest picture timestamp in this album.
-	 * @return LocalDateTime instance representing the earliest timestamp.
+	 * @return {@code LocalDateTime} instance representing the earliest timestamp.
 	 */
 	public LocalDateTime getLatestTimestamp() {
 		if(pictures.size() == 0) {
@@ -72,13 +102,15 @@ public class Album implements Serializable {
 	 * @param name Name for the album.
 	 * @param user The album's owner.
 	 */
-	public Album(String name, User user) throws IllegalArgumentException {
-		for(Album a: user.albums) {
+	protected Album(String name, User owner) throws IllegalArgumentException {
+		for(Album a: owner.albums) {
 			if(a.name.equals(name)) {
 				throw new IllegalArgumentException();
 			}
 		}
 		this.name = name;
+		this.owner = owner;
+		this.owner.albums.add(this);
 	}
 	
 	/**
@@ -87,8 +119,8 @@ public class Album implements Serializable {
 	 * @param name Name for the album.
 	 * @param pictures List of pictures that will be added to this album.
 	 */
-	public Album(String name, User user, List<Picture> pictures) throws IllegalArgumentException {
-		this(name, user);
+	protected Album(String name, User owner, List<Picture> pictures) throws IllegalArgumentException {
+		this(name, owner);
 		this.pictures.addAll(pictures);
 	}
 	
