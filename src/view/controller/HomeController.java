@@ -111,26 +111,15 @@ public class HomeController extends PhotosController {
 	 * Create a new album for the current user, as long as the name is not a duplicate.
 	 */
 	public void createAlbum() {
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.initOwner(stage);
-		dialog.setTitle("Create Album");
-		dialog.setHeaderText("");
-		dialog.setContentText("Enter name for new album: ");
-		Optional<String> result = dialog.showAndWait();
-		
-		if(result.isEmpty()) {return;}
-		
-		String name = result.get();
+		String name = showInputDialog(stage, "Rename Album", "Enter a name for the new album: ");
+		if(name == null) {
+			return;
+		}
 		try{
 			Album album = stateMachine.currentUser.createAlbum(name);
 			olist.add(album);
 		}catch(IllegalArgumentException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(stage);
-			alert.setTitle("Error");
-			alert.setHeaderText("");
-			alert.setContentText("An album with that name already exists.");
-			alert.showAndWait();
+			showErrorDialog(stage, "Error", "An album with that name already exists.");
 			return;
 		}
 		
@@ -142,24 +131,12 @@ public class HomeController extends PhotosController {
 	public void renameAlbum() {
 		// TODO - some kind of validation that the list isn't empty
 		Album album = lstAlbums.getSelectionModel().getSelectedItem();
-		
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.initOwner(stage);
-		dialog.setTitle("Rename Album");
-		dialog.setHeaderText("");
-		dialog.setContentText("Enter a new name for album \"" + album.getName() + "\": ");
-		Optional<String> result = dialog.showAndWait();
-		
-		if(result.isEmpty()) {return;}
-		
-		String name = result.get();
+		String name = showInputDialog(stage, "Rename Album", "Enter a new name for album \"" + album.getName() + "\": ");
+		if(name == null) {
+			return;
+		}
 		if(!album.setName(name)) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(stage);
-			alert.setTitle("Error");
-			alert.setHeaderText("");
-			alert.setContentText("An album with that name already exists.");
-			alert.showAndWait();
+			showErrorDialog(stage, "Error", "An album with that name already exists.");
 			return;
 		}
 		

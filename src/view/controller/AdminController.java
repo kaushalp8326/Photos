@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import model.Album;
 import model.User;
 
 /**
@@ -74,26 +75,15 @@ public class AdminController extends PhotosController {
 	 * Create a new user by initializing a new user save file.
 	 */
 	public void createUser() {
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.initOwner(stage);
-		dialog.setTitle("Create User");
-		dialog.setHeaderText("");
-		dialog.setContentText("Enter name for new user: ");
-		Optional<String> result = dialog.showAndWait();
-		
-		if(result.isEmpty()) {return;}
-		
-		String name = result.get();
+		String name = showInputDialog(stage, "Create User", "Enter a name for the new user: ");
+		if(name == null) {
+			return;
+		}
 		User user;
 		try{
 			user = new User(name);
 		}catch(IOException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(stage);
-			alert.setTitle("Save Data Error");
-			alert.setHeaderText("");
-			alert.setContentText("Unable to create new user.");
-			alert.showAndWait();
+			showErrorDialog(stage, "Save Data Error", "Unable to create new user.");
 			return;
 		}
 		
@@ -106,17 +96,10 @@ public class AdminController extends PhotosController {
 	 */
 	public void deleteUser() {
 		String target = lstUsers.getSelectionModel().getSelectedItem();
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.initOwner(stage);
-		alert.setTitle("Delete user");
-		alert.setHeaderText("");
-		alert.setContentText("Are you sure you want to delete user \"" + target + "\"?");
-		
-		Optional<ButtonType> response = alert.showAndWait();
-		if(response.isPresent() && response.get() == ButtonType.CANCEL) {
+		ButtonType response = showConfirmationDialog(stage, "Delete user", "Are you sure you want to delete user \"" + target + "\"?");
+		if(response == null || response == ButtonType.CANCEL) {
 			return;
 		}
-		
 		File f = new File("user/" + target + ".dat");
 		f.delete();
 		olist.remove(target);

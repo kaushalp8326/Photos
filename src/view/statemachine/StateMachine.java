@@ -1,5 +1,7 @@
 package view.statemachine;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import model.User;
@@ -93,6 +95,21 @@ public class StateMachine {
 		
 		currentState = loginState;
 		loginState.enter();
+		
+	}
+	
+	/**
+	 * If a user is logged in, save their data before terminating the program.
+	 */
+	public void stop() {
+		
+		if(currentUser != null) {
+			try {
+				currentUser.save();
+			}catch(IOException e) {
+				e.printStackTrace(); // should never occur
+			}
+		}
 		
 	}
 	

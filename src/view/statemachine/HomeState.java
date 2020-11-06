@@ -2,6 +2,7 @@ package view.statemachine;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -82,7 +83,7 @@ public class HomeState extends PhotosState{
 			// TODO
 			
 		}else if(b == homeController.cmdQuit) {
-			// TODO
+			Platform.exit();
 			
 		}
 		

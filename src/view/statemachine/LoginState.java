@@ -2,6 +2,7 @@ package view.statemachine;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,8 +73,8 @@ public class LoginState extends PhotosState{
 	/**
 	 * Process an event from the login screen.
 	 * If the user logs in and the username is "admin", go to the admin subsystem.
-	 * TODO If the user enters a different existing username, go to that user's home screen.
-	 * TODO If a nonexistent username is entered, show an error dialog.
+	 * If the user enters a different existing username, go to that user's home screen.
+	 * If a nonexistent username is entered, show an error dialog.
 	 * If the user quits, terminate the program.
 	 */
 	public PhotosState processEvent() {
@@ -106,9 +107,10 @@ public class LoginState extends PhotosState{
 			loginController.stage.close();
 			return stateMachine.homeState;
 			
+		}else if(b == loginController.cmdQuit) {
+			Platform.exit();
 		}
 		
-		// TODO - quit, which probably requires a StateMachine.exit() method
 		return null;
 		
 	}

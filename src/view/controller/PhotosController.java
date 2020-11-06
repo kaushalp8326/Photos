@@ -1,5 +1,11 @@
 package view.controller;
 
+import java.util.Optional;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import view.statemachine.StateMachine;
 
@@ -18,5 +24,60 @@ public abstract class PhotosController {
 	 * Each controller gets its own stage.
 	 */
 	public Stage stage;
+	
+	/**
+	 * Utility method for showing an error dialog.
+	 * @param stage Stage from which this dialog is launched.
+	 * @param title Dialog title
+	 * @param content Dialog caption
+	 */
+	protected void showErrorDialog(Stage stage, String title, String content) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.initOwner(stage);
+		alert.setTitle(title);
+		alert.setHeaderText("");
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
+	
+	/**
+	 * Utility method for showing a text input dialog.
+	 * @param stage Stage from which this dialog is launched.
+	 * @param title Dialog title
+	 * @param content Dialog caption
+	 * @return The string response, or {@code null} if there is none.
+	 */
+	protected String showInputDialog(Stage stage, String title, String content) {
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.initOwner(stage);
+		dialog.setTitle(title);
+		dialog.setHeaderText("");
+		dialog.setContentText(content);
+		Optional<String> result = dialog.showAndWait();
+		if(result.isEmpty()) {
+			return null;
+		}
+		return result.get();
+	}
+	
+	/**
+	 * Utility method for showing a confirmation dialog.
+	 * @param stage Stage from which this dialog is launched
+	 * @param title Dialog title
+	 * @param content Dialog caption
+	 * @return The user's response from the dialog.
+	 */
+	protected ButtonType showConfirmationDialog(Stage stage, String title, String content) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.initOwner(stage);
+		alert.setTitle(title);
+		alert.setHeaderText("");
+		alert.setContentText(content);
+		Optional<ButtonType> response = alert.showAndWait();
+		if(!response.isPresent()) {
+			return null;
+		}
+		return response.get();
+	}
 
 }

@@ -11,9 +11,15 @@ import view.statemachine.StateMachine;
  *
  */
 public class Photos extends Application {
+	
+	public static final StateMachine driver = StateMachine.getInstance();
 
 	public void start(Stage mainStage) {
-		StateMachine.getInstance().start();
+		driver.start();
+	}
+	
+	public void stop() {
+		driver.stop();
 	}
 	
 	public static void main(String[] args) {
