@@ -61,7 +61,7 @@ public class AlbumState extends PhotosState{
 			albumController.addPhoto();
 			
 		}else if(b == albumController.cmdRemovePhoto) {
-			// TODO
+			albumController.removePhoto();
 			
 		}else if(b == albumController.cmdAddTag) {
 			// TODO
@@ -69,14 +69,14 @@ public class AlbumState extends PhotosState{
 		}else if(b == albumController.cmdRemoveTag) {
 			// TODO
 			
-		}else if(b == albumController.cmdEditTag) {
-			// TODO
+		}else if(b == albumController.cmdEditCaption) {
+			albumController.editCaption();
 			
 		}else if(b == albumController.cmdMovePhoto) {
-			// TODO
+			albumController.movePhoto();
 			
 		}else if(b == albumController.cmdCopyPhoto) {
-			// TODO
+			albumController.copyPhoto();
 			
 		}else if(b == albumController.cmdViewSlideshow) {
 			// TODO

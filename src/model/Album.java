@@ -28,7 +28,34 @@ public class Album implements Serializable {
 	/**
 	 * List of pictures that are contained by this album.
 	 */
-	public ArrayList<Picture> pictures = new ArrayList<Picture>();
+	protected ArrayList<Picture> pictures = new ArrayList<Picture>();
+	
+	/**
+	 * Get a read-only copy of this album's pictures. The pictures themselves are mutable,
+	 * but adds and deletes are not allowed.
+	 * @return An unmodifiable {@code List} instance containing each picture in this album.
+	 */
+	public List<Picture> getPictures(){
+		return List.copyOf(pictures);
+	}
+	
+	/**
+	 * Add a picture to this album.
+	 * @param picture The picture to add.
+	 * @return Whether the add was successful.
+	 */
+	public boolean addPicture(Picture picture) {
+		return pictures.add(picture);
+	}
+	
+	/**
+	 * Remove a picture from this album.
+	 * @param picture The picture to remove.
+	 * @return Whether the remove was successful.
+	 */
+	public boolean removePicture(Picture picture) {
+		return pictures.remove(picture);
+	}
 	
 	/**
 	 * A more direct way of accessing this album's size, rather than referencing {@code this.pictures}.
@@ -101,6 +128,7 @@ public class Album implements Serializable {
 	 * Doesn't allow for two albums owned by the same user to have the same name.
 	 * @param name Name for the album.
 	 * @param user The album's owner.
+	 * @throws IllegalArgumentException if an existing album owned by the same user has this name.
 	 */
 	protected Album(String name, User owner) throws IllegalArgumentException {
 		for(Album a: owner.albums) {
@@ -118,10 +146,15 @@ public class Album implements Serializable {
 	 * Most useful when creating an album from a list of search results.
 	 * @param name Name for the album.
 	 * @param pictures List of pictures that will be added to this album.
+	 * @throws IllegalArgumentException if an existing album owned by the same user has this name.
 	 */
 	protected Album(String name, User owner, List<Picture> pictures) throws IllegalArgumentException {
 		this(name, owner);
 		this.pictures.addAll(pictures);
+	}
+	
+	public String toString() {
+		return name;
 	}
 	
 }

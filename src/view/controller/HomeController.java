@@ -1,20 +1,16 @@
 package view.controller;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
 import model.Album;
 
 /**
@@ -86,20 +82,7 @@ public class HomeController extends PhotosController {
 		albums = new SortedList<Album>(olist,
 				(a1, a2) -> a1.getName().toUpperCase().compareTo(a2.getName().toUpperCase()));
 		
-		// Configure the lstAlbums so it shows album names instead of object codes
 		lstAlbums.setItems(albums);
-		lstAlbums.setCellFactory(param -> new ListCell<Album>() {
-            @Override
-            public void updateItem(Album a, boolean empty) {
-                super.updateItem(a, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(a.getName());
-                }
-            }
-        });
-		
 		lstAlbums
 			.getSelectionModel()
 			.selectedIndexProperty()
@@ -124,6 +107,19 @@ public class HomeController extends PhotosController {
 			return;
 		}
 		
+	}
+	
+	/**
+	 * Delete the selected album.
+	 */
+	public void deleteAlbum() {
+		Album album = lstAlbums.getSelectionModel().getSelectedItem();
+		ButtonType response = showConfirmationDialog(stage, "Delete Album", "Are you sure you want to delete album \"" + album.getName() + "\"?");
+		if(response == null || response == ButtonType.CANCEL) {
+			return;
+		}
+		stateMachine.currentUser.deleteAlbum(album);
+		olist.remove(album);
 	}
 	
 	/**

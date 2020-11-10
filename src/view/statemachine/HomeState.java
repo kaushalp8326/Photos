@@ -68,7 +68,7 @@ public class HomeState extends PhotosState{
 			homeController.renameAlbum();
 			
 		}else if(b == homeController.cmdDeleteAlbum) {
-			// TODO
+			homeController.deleteAlbum();
 			
 		}else if(b == homeController.cmdOpenAlbum) {
 			stateMachine.currentAlbum = homeController.lstAlbums.getSelectionModel().getSelectedItem();
@@ -82,7 +82,14 @@ public class HomeState extends PhotosState{
 			// TODO
 			
 		}else if(b == homeController.cmdLogout) {
-			// TODO
+			try {	
+				stateMachine.currentUser.save();
+			}catch(IOException e) {
+				e.printStackTrace(); // should not occur
+			}
+			homeController.stage.close();
+			stateMachine.currentUser = null;
+			return stateMachine.loginState;
 			
 		}else if(b == homeController.cmdQuit) {
 			Platform.exit();

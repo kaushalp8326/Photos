@@ -55,11 +55,21 @@ public class User implements Serializable {
 	/**
 	 * Creates a new album for this user. A user cannot own two albums with the same name.
 	 * @param name Album name.
+	 * @throws IllegalArgumentException if an existing album has this name.
 	 * @return Instance of the new Album.
 	 */
-	public Album createAlbum(String name) {
+	public Album createAlbum(String name) throws IllegalArgumentException {
 		Album a = new Album(name, this);
 		return a;
+	}
+	
+	/**
+	 * Deletes an album from the user's collection.
+	 * @param album
+	 * @return {@code true} if delete was successful, {@code false} otherwise.
+	 */
+	public boolean deleteAlbum(Album album) {
+		return albums.remove(album);
 	}
 	
 	/**

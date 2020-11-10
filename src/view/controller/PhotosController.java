@@ -1,11 +1,13 @@
 package view.controller;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import view.statemachine.StateMachine;
 
@@ -78,6 +80,28 @@ public abstract class PhotosController {
 			return null;
 		}
 		return response.get();
+	}
+	
+	/**
+	 * Utility method for showing a choice dialog.
+	 * @param <T> Type contained by {@code choices}
+	 * @param stage Stage from which this dialog is launched
+	 * @param title Dialog title
+	 * @param content Dialog caption
+	 * @param choices Set of choices the user will choose from
+	 * @return A response of type {@code T}, or {@code null} if there is none.
+	 */
+	protected <T> T showChoiceDialog(Stage stage, String title, String content, Collection<T> choices) {
+		ChoiceDialog<T> dialog = new ChoiceDialog<T>(null, choices);
+		dialog.initOwner(stage);
+		dialog.setTitle(title);
+		dialog.setHeaderText("");
+		dialog.setContentText(content);
+		Optional<T> choice = dialog.showAndWait();
+		if(!choice.isPresent()) {
+			return null;
+		}
+		return choice.get();
 	}
 
 }

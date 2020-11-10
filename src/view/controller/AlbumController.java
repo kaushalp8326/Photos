@@ -1,6 +1,8 @@
 package view.controller;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,10 +10,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import model.Album;
 import model.Picture;
 
 public class AlbumController extends PhotosController {
@@ -23,7 +27,7 @@ public class AlbumController extends PhotosController {
 	@FXML public Button cmdRemovePhoto;
 	@FXML public Button cmdAddTag;
 	@FXML public Button cmdRemoveTag;
-	@FXML public Button cmdEditTag;
+	@FXML public Button cmdEditCaption;
 	@FXML public Button cmdMovePhoto;
 	@FXML public Button cmdCopyPhoto;
 	@FXML public Button cmdViewSlideshow;
@@ -44,7 +48,7 @@ public class AlbumController extends PhotosController {
 		
 		// Pictures are organized from earliest timestamp to latest
 		olist = FXCollections.observableArrayList();
-		olist.addAll(stateMachine.currentAlbum.pictures);
+		olist.addAll(stateMachine.currentAlbum.getPictures());
 		pictures = new SortedList<Picture>(olist,
 				(p1, p2) -> p1.getTimestamp().compareTo(p2.getTimestamp()));
 		
@@ -92,9 +96,79 @@ public class AlbumController extends PhotosController {
 		pic.caption = showInputDialog(stage, "Add Photo", "Enter a caption:");
 		// TODO location, tags?
 		
-		stateMachine.currentAlbum.pictures.add(pic);
+		stateMachine.currentAlbum.addPicture(pic);
 		olist.add(pic);
 		
+	}
+	
+	/**
+	 * Removes the selected {@code Picture} from the current {@code Album}.
+	 */
+	public void removePhoto() {
+		Picture target = lstPictures.getSelectionModel().getSelectedItem();
+		ButtonType response = showConfirmationDialog(stage, "Delete Photo", "Are you sure you want to delete this photo?");
+		if(response == null || response == ButtonType.CANCEL) {
+			return;
+		}
+		stateMachine.currentAlbum.removePicture(target);
+		olist.remove(target);
+	}
+	
+	/**
+	 * Edits the caption of the selected {@code Picture}.
+	 */
+	public void editCaption() {
+		// TODO - some kind of validation that the list isn't empty
+		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		String name = showInputDialog(stage, "Rename Photo", "Enter a new caption:");
+		if(name == null) {
+			return;
+		}
+		picture.caption = name;
+	}
+	
+	/**
+	 * Move the selected photo to another album.
+	 */
+	public void movePhoto() {
+		// There should be at least one other album to choose from
+		if(stateMachine.currentUser.getAlbums().size() <= 1) {
+			showErrorDialog(stage, "Error", "There are no other albums to which this photo can be moved.");
+		}
+		
+		// Choose from any album except the current one
+		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		List<Album> choices = stateMachine.currentUser.getAlbums().stream()
+				.filter(a -> a != stateMachine.currentAlbum)
+				.collect(Collectors.toList());
+		Album album = showChoiceDialog(stage, "Move Photo", "Choose a new album for this photo:", choices);
+		if(album == null) {
+			return;
+		}
+		album.addPicture(picture);
+		stateMachine.currentAlbum.removePicture(picture);
+		olist.remove(picture);
+	}
+	
+	/**
+	 * Copy the selected photo to another album.
+	 */
+	public void copyPhoto() {
+		// There should be at least one other album to choose from
+		if(stateMachine.currentUser.getAlbums().size() <= 1) {
+			showErrorDialog(stage, "Error", "There are no other albums to which this photo can be copied.");
+		}
+		
+		// Choose from any album except the current one
+		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		List<Album> choices = stateMachine.currentUser.getAlbums().stream()
+				.filter(a -> a != stateMachine.currentAlbum)
+				.collect(Collectors.toList());
+		Album album = showChoiceDialog(stage, "Copy Photo", "Choose an album for the copy:", choices);
+		if(album == null) {
+			return;
+		}
+		album.addPicture(picture);
 	}
 	
 	@FXML private void processEvent(ActionEvent e) {
