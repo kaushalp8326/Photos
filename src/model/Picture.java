@@ -22,7 +22,7 @@ public class Picture implements Serializable {
 
 	private String path;
 	
-	private Image image;
+	private transient Image image;
 	
 	public String caption;
 	
@@ -37,8 +37,7 @@ public class Picture implements Serializable {
 	 */
 	public Picture(String path) throws FileNotFoundException {
 		this.path = path;
-		this.image = new Image(new FileInputStream(path)); // possible FNFE here
-		long time = new File(path).lastModified(); // and here
+		long time = new File(path).lastModified(); // possible FNFE here
 		this.timestamp = LocalDateTime.ofInstant(Instant.ofEpochMilli(time), TimeZone.getDefault().toZoneId());
 	}
 	
@@ -51,10 +50,18 @@ public class Picture implements Serializable {
 	}
 	
 	/**
-	 * Fetch this picture's {@code Image} representation.
+	 * Fetch this picture's {@code Image} representation. Since {@code Image} isn't serializable, the {@code Image} gets
+	 * loaded from the file system when it's first accessed, but is stored inside the class until the end of the session.
 	 * @return This picture's {@code Image}.
 	 */
 	public Image getImage() {
+		if(image == null) {
+			try {
+				this.image = new Image(new FileInputStream(path));
+			}catch(FileNotFoundException e) {
+				e.printStackTrace(); // should not occur, since you can't have a picture with an invalid path
+			}
+		}
 		return image;
 	}
 	

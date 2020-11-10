@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import model.Album;
 import model.User;
 import view.controller.LoginController;
 
@@ -59,6 +60,11 @@ public class StateMachine {
 	 * Instance of the current user. When a user logs in, this object is loaded from serialized data.
 	 */
 	public User currentUser;
+	
+	/**
+	 * Instance of the current album, used for the Album State.
+	 */
+	public Album currentAlbum;
 	
 	/**
 	 * Singleton instance of this state machine.

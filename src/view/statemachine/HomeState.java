@@ -48,7 +48,7 @@ public class HomeState extends PhotosState{
 		// show the window
 		Scene mainScene = new Scene(root);
 		homeController.stage = new Stage();
-		homeController.stage.setTitle("Login");
+		homeController.stage.setTitle("Photo Viewer");
 		homeController.stage.setResizable(false);
 		homeController.stage.setScene(mainScene);
 		homeController.stage.show();
@@ -71,7 +71,9 @@ public class HomeState extends PhotosState{
 			// TODO
 			
 		}else if(b == homeController.cmdOpenAlbum) {
-			// TODO
+			stateMachine.currentAlbum = homeController.lstAlbums.getSelectionModel().getSelectedItem();
+			homeController.stage.close();
+			return stateMachine.albumState;
 			
 		}else if(b == homeController.cmdFindPhotosByTag) {
 			// TODO	

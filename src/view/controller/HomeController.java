@@ -1,5 +1,6 @@
 package view.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -70,8 +71,8 @@ public class HomeController extends PhotosController {
 			lblEarliestUpload.setText("Earliest Upload: None");
 			lblLatestUpload.setText("Latest Upload: None");
 		}else {
-			lblEarliestUpload.setText("Earliest Upload: " + a.getEarliestTimestamp());
-			lblLatestUpload.setText("Latest Upload: " + a.getLatestTimestamp());
+			lblEarliestUpload.setText("Earliest Upload: " + a.getEarliestTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE));
+			lblLatestUpload.setText("Latest Upload: " + a.getLatestTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		}
 	}
 		
