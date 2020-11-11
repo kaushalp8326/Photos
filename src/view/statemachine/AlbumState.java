@@ -79,7 +79,7 @@ public class AlbumState extends PhotosState{
 			albumController.copyPhoto();
 			
 		}else if(b == albumController.cmdViewSlideshow) {
-			// TODO
+			return stateMachine.slideshowState;
 			
 		}else if(b == albumController.cmdCreateAlbumFromSearch) {
 			// TODO
