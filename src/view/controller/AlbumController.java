@@ -1,5 +1,6 @@
 package view.controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,16 +82,16 @@ public class AlbumController extends PhotosController {
 	 * Creates a {@code Picture} object based on a series of user inputs and adds it to the current {@code Album}.
 	 */
 	public void addPhoto() {
-		String path;
-		do {
-			path = showInputDialog(stage, "Add Photo", "Enter the filepath for this photo (ex. C:\\Users\\Name\\Desktop):");
-		}while(path == null);
 		
+		File picFile = showImageDialog(stage, "Add Photo");
+		if(picFile == null) {
+			return;
+		}
 		Picture pic;
 		try {
-			pic = new Picture(path);
+			pic = new Picture(picFile.getPath());
 		}catch(FileNotFoundException e) {
-			showErrorDialog(stage, "Error", "Could not load the photo at filepath \"" + path + "\".");
+			e.printStackTrace(); // should not occur
 			return;
 		}
 		pic.caption = showInputDialog(stage, "Add Photo", "Enter a caption:");

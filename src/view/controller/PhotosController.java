@@ -1,5 +1,6 @@
 package view.controller;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import view.statemachine.StateMachine;
 
@@ -102,6 +104,19 @@ public abstract class PhotosController {
 			return null;
 		}
 		return choice.get();
+	}
+	
+	/**
+	 * Utility method for showing a FileChooser dialog to fetch a photo.
+	 * @param stage Stage from which this dialog is launched
+	 * @param title Dialog title
+	 * @return A {@code File} pointing to the selected image.
+	 */
+	protected File showImageDialog(Stage stage, String title) {
+		FileChooser fc = new FileChooser();
+		fc.setTitle(title);
+		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image files", "*.bmp", "*.gif", "*.jpg", "*.png"));
+		return fc.showOpenDialog(stage);
 	}
 
 }
