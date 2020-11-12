@@ -2,16 +2,22 @@ package view.controller;
 
 import java.time.format.DateTimeFormatter;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Picture;
 
 public class SlideshowController extends PhotosController {
 	
 	// FXML entities
+	@FXML public Parent window;
+	
 	@FXML public Button cmdFirstPhoto;
 	@FXML public Button cmdPrevPhoto;
 	@FXML public Button cmdNextPhoto;
@@ -33,6 +39,13 @@ public class SlideshowController extends PhotosController {
 	public void start() {
 		slide = 0;
 		showPhoto();
+		stage = new Stage();
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				processEvent(event);
+			}
+		});
 	}
 	
 	/**
@@ -62,7 +75,7 @@ public class SlideshowController extends PhotosController {
 		}
 	}
 	
-	@FXML private void processEvent(ActionEvent e) {
+	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
 	}
 	

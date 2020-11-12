@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import view.controller.SlideshowController;
 
 public class SlideshowState extends PhotosState{
@@ -47,7 +47,6 @@ public class SlideshowState extends PhotosState{
 		
 		// show the window
 		Scene mainScene = new Scene(root);
-		slideshowController.stage = new Stage();
 		slideshowController.stage.setTitle("Photo Viewer");
 		slideshowController.stage.setResizable(false);
 		slideshowController.stage.setScene(mainScene);
@@ -56,6 +55,12 @@ public class SlideshowState extends PhotosState{
 	}
 	
 	public PhotosState processEvent() {
+		
+		// Close window event
+		if(lastEvent instanceof WindowEvent) {
+			slideshowController.stage.close();
+			return stateMachine.albumState;
+		}
 		
 		Button b = (Button)lastEvent.getSource();
 		

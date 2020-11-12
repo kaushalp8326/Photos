@@ -2,11 +2,9 @@ package view.statemachine;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+import javafx.event.Event;
 import model.Album;
 import model.User;
-import view.controller.LoginController;
 
 /**
  * State machine representation of the Photos application.
@@ -124,7 +122,7 @@ public class StateMachine {
      * 
      * @param e The action event that is to be passed on for handling.
      */
-    public void processEvent(ActionEvent e) {
+    public void processEvent(Event e) {
         PhotosState.lastEvent = e; 
         PhotosState next = currentState.processEvent();
         if(next != null) { // null = no state change

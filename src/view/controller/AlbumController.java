@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -33,6 +33,7 @@ public class AlbumController extends PhotosController {
 	@FXML public Button cmdCopyPhoto;
 	@FXML public Button cmdViewSlideshow;
 	@FXML public Button cmdCreateAlbumFromSearch;
+	@FXML public Button cmdClose;
 	
 	// List of pictures
 	private ObservableList<Picture> olist;
@@ -172,7 +173,7 @@ public class AlbumController extends PhotosController {
 		album.addPicture(picture);
 	}
 	
-	@FXML private void processEvent(ActionEvent e) {
+	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
 	}
 	

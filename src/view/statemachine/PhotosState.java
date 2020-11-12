@@ -1,7 +1,6 @@
 package view.statemachine;
 
-import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+import javafx.event.Event;
 
 public abstract class PhotosState {
 	
@@ -13,7 +12,7 @@ public abstract class PhotosState {
 	/**
 	 * The last action event that was fired.
 	 */
-	static ActionEvent lastEvent;
+	static Event lastEvent;
 	
 	/**
 	 * This method is overridden by each subclass with a state-specific implementation.

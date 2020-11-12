@@ -2,20 +2,15 @@ package view.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
-import model.Album;
 import model.User;
 
 /**
@@ -106,7 +101,7 @@ public class AdminController extends PhotosController {
 		
 	}
 	
-	@FXML private void processEvent(ActionEvent e) {
+	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
 	}
 

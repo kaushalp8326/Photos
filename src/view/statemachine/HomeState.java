@@ -72,7 +72,6 @@ public class HomeState extends PhotosState{
 			
 		}else if(b == homeController.cmdOpenAlbum) {
 			stateMachine.currentAlbum = homeController.lstAlbums.getSelectionModel().getSelectedItem();
-			homeController.stage.close();
 			return stateMachine.albumState;
 			
 		}else if(b == homeController.cmdFindPhotosByTag) {

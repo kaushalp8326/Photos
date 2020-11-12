@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import view.controller.AlbumController;
 
 public class AlbumState extends PhotosState{
@@ -46,7 +45,7 @@ public class AlbumState extends PhotosState{
 		
 		// show the window
 		Scene mainScene = new Scene(root);
-		albumController.stage = new Stage();
+		albumController.stage = stateMachine.homeState.homeController.stage;
 		albumController.stage.setTitle("Photo Viewer");
 		albumController.stage.setResizable(false);
 		albumController.stage.setScene(mainScene);
@@ -84,6 +83,9 @@ public class AlbumState extends PhotosState{
 		}else if(b == albumController.cmdCreateAlbumFromSearch) {
 			// TODO
 			
+		}else if(b == albumController.cmdClose) {
+			albumController.stage.close();
+			return stateMachine.homeState;
 		}
 		
 		return null;

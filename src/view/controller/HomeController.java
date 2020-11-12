@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -139,7 +139,7 @@ public class HomeController extends PhotosController {
 		
 	}
 	
-	@FXML private void processEvent(ActionEvent e) {
+	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
 	}
 	

@@ -1,6 +1,6 @@
 package view.controller;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -20,7 +20,7 @@ public class LoginController extends PhotosController {
 	
 	public void start() {}
 	
-	@FXML private void processEvent(ActionEvent e) {
+	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
 	}
 	
