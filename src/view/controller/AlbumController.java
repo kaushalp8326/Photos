@@ -179,6 +179,7 @@ public class AlbumController extends PhotosController {
 	
 	public void addTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		//TODO add logic for if they click cancel for either tag or value prompts
 		String tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
 		String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
 		picture.addTag(tag, value);
@@ -186,8 +187,14 @@ public class AlbumController extends PhotosController {
 	
 	public void removeTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		List<String> choices = picture.getTags();
+		String toRemove=showChoiceDialog(stage, "Remove Tag", "Choose a tag to remove:", choices);
+		String tag=toRemove.substring(0,toRemove.indexOf(":"));
+		String value=toRemove.substring(toRemove.indexOf("\n")+1);
+		/*
 		String tag=showInputDialog(stage, "Remove Tag", "Enter a tag to remove from:");
 		String value=showInputDialog(stage, "Remove Tag", "Enter the value to remove from tag \""+tag+"\":");
+		*/
 		picture.removeTag(tag, value);
 	}
 	

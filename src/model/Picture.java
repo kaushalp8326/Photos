@@ -36,7 +36,7 @@ public class Picture implements Serializable {
 	/**
 	 * Tags for a Picture.
 	 */
-	public HashMap<String, ArrayList<String>> tags;
+	private HashMap<String, ArrayList<String>> tags=new HashMap<String, ArrayList<String>>();
 	
 	private LocalDateTime timestamp;
 	
@@ -83,9 +83,12 @@ public class Picture implements Serializable {
 	
 	public ArrayList<String> getTags(){
 		ArrayList<String> tagPairs=new ArrayList<String>();
+		if(tags.size()==0) {
+			return tagPairs;
+		}
 		Set<Entry<String, ArrayList<String>>> setOfTags = tags.entrySet();
 		for(Entry<String, ArrayList<String>> entry : setOfTags){
-            tagPairs.add(entry.getKey()+"\n"+entry.getValue());
+            tagPairs.add(entry.getKey()+":\n"+entry.getValue());
         }
 		return tagPairs;
 	}

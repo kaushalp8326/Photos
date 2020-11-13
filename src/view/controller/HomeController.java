@@ -2,6 +2,7 @@ package view.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -143,10 +144,23 @@ public class HomeController extends PhotosController {
 	
 	public Album findPhotosByTag(ArrayList<Picture> pictures) {
 		ArrayList<Picture> results=new ArrayList<Picture>();
-		String tag=showInputDialog(stage, "Search Tag", "Enter a tag to search by:");
-		String value=showInputDialog(stage, "Search Tag", "Enter a value for the tag \""+tag+"\":");
+		List<String> choices = new ArrayList<String>();
 		for(Picture pic:pictures) {
-			if(pic.getTags().contains(tag+"\n"+value)) {
+			choices.addAll(pic.getTags());
+		}
+		if(choices.size()==0) {
+			//none of the photos have tags
+			//TODO error message
+		}
+		String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
+		String tag=searchBy.substring(0,searchBy.indexOf(":"));
+		String value=searchBy.substring(searchBy.indexOf("\n")+1);
+		/*
+		String tag=showInputDialog(stage, "Search By Tag", "Enter a tag to search by:");
+		String value=showInputDialog(stage, "Search By Tag", "Enter a value for the tag \""+tag+"\":");
+		*/
+		for(Picture pic:pictures) {
+			if(pic.getTags().contains(tag+":\n"+value)) {
 				results.add(pic);
 			}
 		}
