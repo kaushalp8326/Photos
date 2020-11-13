@@ -138,6 +138,7 @@ public class AlbumController extends PhotosController {
 		// There should be at least one other album to choose from
 		if(stateMachine.currentUser.getAlbums().size() <= 1) {
 			showErrorDialog(stage, "Error", "There are no other albums to which this photo can be moved.");
+			return;
 		}
 		
 		// Choose from any album except the current one
@@ -161,6 +162,7 @@ public class AlbumController extends PhotosController {
 		// There should be at least one other album to choose from
 		if(stateMachine.currentUser.getAlbums().size() <= 1) {
 			showErrorDialog(stage, "Error", "There are no other albums to which this photo can be copied.");
+			return;
 		}
 		
 		// Choose from any album except the current one
