@@ -1,6 +1,7 @@
 package view.controller;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Album;
+import model.Picture;
 
 /**
  * Controller for the home screen.
@@ -137,6 +139,19 @@ public class HomeController extends PhotosController {
 			return;
 		}
 		
+	}
+	
+	public Album findPhotosByTag(ArrayList<Picture> pictures) {
+		ArrayList<Picture> results=new ArrayList<Picture>();
+		String tag=showInputDialog(stage, "Search Tag", "Enter a tag to search by:");
+		String value=showInputDialog(stage, "Search Tag", "Enter a value for the tag \""+tag+"\":");
+		for(Picture pic:pictures) {
+			if(pic.getTags().contains(tag+"\n"+value)) {
+				results.add(pic);
+			}
+		}
+		Album searchResults=new Album("searchResults", null, results);
+		return searchResults;
 	}
 	
 	@FXML private void processEvent(Event e) {

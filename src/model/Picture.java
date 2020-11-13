@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javafx.scene.image.Image;
@@ -29,6 +33,10 @@ public class Picture implements Serializable {
 	// public ArrayList<T> tags;
 	// public HashMap<T,U> tags;
 	// TODO do we want a Tag class?
+	/**
+	 * Tags for a Picture.
+	 */
+	public HashMap<String, ArrayList<String>> tags;
 	
 	private LocalDateTime timestamp;
 	
@@ -71,6 +79,41 @@ public class Picture implements Serializable {
 	 */
 	public LocalDateTime getTimestamp() {
 		return timestamp;
+	}
+	
+	public ArrayList<String> getTags(){
+		ArrayList<String> tagPairs=new ArrayList<String>();
+		Set<Entry<String, ArrayList<String>>> setOfTags = tags.entrySet();
+		for(Entry<String, ArrayList<String>> entry : setOfTags){
+            tagPairs.add(entry.getKey()+"\n"+entry.getValue());
+        }
+		return tagPairs;
+	}
+	
+	public void addTag(String tag, String value) {
+		if(tags.get(tag)==null) {
+			ArrayList<String> toAdd=new ArrayList<String>();
+			toAdd.add(value);
+			tags.put(tag, toAdd);
+		}else {
+			ArrayList<String> current=tags.get(tag);
+			if(current.contains(value)) {
+				//tag, value combination already present
+				//TODO error dialog
+				//throw new IllegalArgumentException();
+			}else {
+				tags.get(tag).add(value);
+			}
+		}
+	}
+	
+	public void removeTag(String tag, String value) {
+		if(tags.get(tag)==null) {
+			//tag was not present
+			//TODO error dialog
+		}else {
+			tags.get(tag).remove(value);
+		}
 	}
 	
 }

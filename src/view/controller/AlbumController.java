@@ -2,6 +2,8 @@ package view.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -171,6 +173,20 @@ public class AlbumController extends PhotosController {
 			return;
 		}
 		album.addPicture(picture);
+	}
+	
+	public void addTag() {
+		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		String tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
+		String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
+		picture.addTag(tag, value);
+	}
+	
+	public void removeTag() {
+		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		String tag=showInputDialog(stage, "Remove Tag", "Enter a tag to remove from:");
+		String value=showInputDialog(stage, "Remove Tag", "Enter the value to remove from tag \""+tag+"\":");
+		picture.removeTag(tag, value);
 	}
 	
 	@FXML private void processEvent(Event e) {

@@ -63,10 +63,10 @@ public class AlbumState extends PhotosState{
 			albumController.removePhoto();
 			
 		}else if(b == albumController.cmdAddTag) {
-			// TODO
+			albumController.addTag();
 			
 		}else if(b == albumController.cmdRemoveTag) {
-			// TODO
+			albumController.removeTag();
 			
 		}else if(b == albumController.cmdEditCaption) {
 			albumController.editCaption();

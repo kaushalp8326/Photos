@@ -148,7 +148,7 @@ public class Album implements Serializable {
 	 * @param pictures List of pictures that will be added to this album.
 	 * @throws IllegalArgumentException if an existing album owned by the same user has this name.
 	 */
-	protected Album(String name, User owner, List<Picture> pictures) throws IllegalArgumentException {
+	public Album(String name, User owner, List<Picture> pictures) throws IllegalArgumentException {
 		this(name, owner);
 		this.pictures.addAll(pictures);
 	}

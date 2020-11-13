@@ -1,6 +1,7 @@
 package view.statemachine;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.Album;
+import model.Picture;
 import view.controller.HomeController;
 
 public class HomeState extends PhotosState{
@@ -75,7 +78,11 @@ public class HomeState extends PhotosState{
 			return stateMachine.albumState;
 			
 		}else if(b == homeController.cmdFindPhotosByTag) {
-			// TODO	
+			ArrayList<Picture> pictures=new ArrayList<Picture>();
+			for(Album album:homeController.lstAlbums.getSelectionModel().getSelectedItems()) {
+				pictures.addAll(album.getPictures());
+			}
+			homeController.findPhotosByTag(pictures);
 			
 		}else if(b == homeController.cmdFindPhotosByDate) {
 			// TODO
