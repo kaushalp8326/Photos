@@ -82,6 +82,7 @@ public class AlbumState extends PhotosState{
 			
 		}else if(b == albumController.cmdCreateAlbumFromSearch) {
 			// TODO
+			albumController.createAlbumFromSearch();
 			
 		}else if(b == albumController.cmdClose) {
 			albumController.stage.close();

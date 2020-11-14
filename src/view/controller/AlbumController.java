@@ -233,9 +233,33 @@ public class AlbumController extends PhotosController {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
 		List<String> choices = picture.getTags();
 		String toRemove=showChoiceDialog(stage, "Remove Tag", "Choose a tag to remove:", choices);
+		if(toRemove==null) {
+			//showErrorDialog(stage, "Error", "Did not select a Tag.");
+			return;
+		}
 		String tag=toRemove.substring(0,toRemove.indexOf(":"));
 		String value=toRemove.substring(toRemove.indexOf("\n")+1);
 		picture.removeTag(tag, value);
+	}
+	
+	public void createAlbumFromSearch() {
+		String name = showInputDialog(stage, "Rename Album", "Enter a name for the new album: ");
+		if(name == null) {
+			return;
+		}
+		try{
+			Album album = stateMachine.currentUser.createAlbum(name);
+			for(Picture pic:lstPictures.getItems()) {
+				album.addPicture(pic);
+			}
+			ObservableList<Album> olist = FXCollections.observableArrayList();
+			olist.addAll(stateMachine.currentUser.getAlbums());
+			olist.add(album);
+		}catch(IllegalArgumentException e) {
+			showErrorDialog(stage, "Error", "An album with that name already exists.");
+			return;
+		}
+		
 	}
 	
 	@FXML private void processEvent(Event e) {

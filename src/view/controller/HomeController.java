@@ -3,6 +3,7 @@ package view.controller;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -145,8 +146,8 @@ public class HomeController extends PhotosController {
 	}
 	
 	public Album findPhotosByTag(ArrayList<Picture> pictures) {
-		ArrayList<Picture> results=new ArrayList<Picture>();
-		List<String> choices = new ArrayList<String>();
+		HashSet<Picture> results=new HashSet<Picture>();
+		HashSet<String> choices = new HashSet<String>();
 		for(Picture pic:pictures) {
 			choices.addAll(pic.getTags());
 		}
@@ -162,7 +163,6 @@ public class HomeController extends PhotosController {
 				results.add(pic);
 			}
 		}
-				
 		Album searchResults=new Album("Search Results", results);
 		return searchResults;
 	}

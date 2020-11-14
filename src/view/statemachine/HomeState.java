@@ -79,7 +79,8 @@ public class HomeState extends PhotosState{
 			
 		}else if(b == homeController.cmdFindPhotosByTag) {
 			ArrayList<Picture> pictures=new ArrayList<Picture>();
-			for(Album album:homeController.lstAlbums.getSelectionModel().getSelectedItems()) {
+			for(int i=0; i<homeController.lstAlbums.getItems().size(); i++) {
+				Album album=homeController.lstAlbums.getItems().get(i);
 				pictures.addAll(album.getPictures());
 			}
 			stateMachine.currentAlbum=homeController.findPhotosByTag(pictures);
