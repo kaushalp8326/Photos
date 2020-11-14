@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -34,6 +35,8 @@ public class User implements Serializable {
 	 * List of the user's albums. Hidden outside this package.
 	 */
 	protected ArrayList<Album> albums;
+	
+	public HashSet<String> uniqueTags=new HashSet<String>();
 	
 	/**
 	 * Get this user's username

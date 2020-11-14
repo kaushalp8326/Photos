@@ -30,6 +30,10 @@ public class Album implements Serializable {
 	 */
 	protected ArrayList<Picture> pictures = new ArrayList<Picture>();
 	
+	public User getOwner() {
+		return owner;
+	}
+	
 	/**
 	 * Get a read-only copy of this album's pictures. The pictures themselves are mutable,
 	 * but adds and deletes are not allowed.

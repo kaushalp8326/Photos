@@ -82,7 +82,8 @@ public class HomeState extends PhotosState{
 			for(Album album:homeController.lstAlbums.getSelectionModel().getSelectedItems()) {
 				pictures.addAll(album.getPictures());
 			}
-			homeController.findPhotosByTag(pictures);
+			stateMachine.currentAlbum=homeController.findPhotosByTag(pictures);
+			return stateMachine.albumState;
 			
 		}else if(b == homeController.cmdFindPhotosByDate) {
 			// TODO

@@ -99,10 +99,16 @@ public class Picture implements Serializable {
 	public String printTags() {
 		String ret="";
 		ArrayList<String> tagPairs=this.getTags();
+		if(tagPairs==null) {
+			return ret;
+		}
 		for(String s:tagPairs) {
 			String tag=s.substring(0,s.indexOf(":"));
 			String value=s.substring(s.indexOf("\n")+1);
 			ret+=tag+": "+value+", ";
+		}
+		if(!ret.equalsIgnoreCase("")){
+			ret=ret.substring(0, ret.length()-2);
 		}
 		return ret;
 	}

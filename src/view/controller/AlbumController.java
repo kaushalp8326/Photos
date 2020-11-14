@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,7 +79,15 @@ public class AlbumController extends PhotosController {
         });
 		
 		lblAlbum.setText(stateMachine.currentAlbum.getName());
-		
+		if(stateMachine.currentAlbum.getOwner()==null) {
+			cmdMovePhoto.setDisable(true);
+			cmdCopyPhoto.setDisable(true);
+			cmdCreateAlbumFromSearch.setDisable(false);
+		}else {
+			cmdMovePhoto.setDisable(false);
+			cmdCopyPhoto.setDisable(false);
+			cmdCreateAlbumFromSearch.setDisable(true);
+		}
 	}
 	
 	/**
@@ -179,9 +188,44 @@ public class AlbumController extends PhotosController {
 	
 	public void addTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
-		//TODO add logic for if they click cancel for either tag or value prompts
-		String tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
+		String tag;
+		if(stateMachine.currentUser.uniqueTags==null) {
+			//there are no existing tags to  choose from
+			tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
+			if(tag==null) {
+				showErrorDialog(stage, "Error", "Did not add a Tag.");
+				return;
+			}
+			stateMachine.currentUser.uniqueTags=new HashSet<String>();
+			stateMachine.currentUser.uniqueTags.add(tag);
+		}else {
+			//ask whether to get from existing list or make a new tag
+			ArrayList<String> existingOrNew=new ArrayList<String>();
+			existingOrNew.add("Existing tag");
+			existingOrNew.add("New tag");
+			String decision=showChoiceDialog(stage, "Add to an existing Tag, or create a new one?", "Choose an option:", existingOrNew);
+			if(decision.equalsIgnoreCase("Existing tag")) {
+				HashSet<String> choices = stateMachine.currentUser.uniqueTags;
+				tag=showChoiceDialog(stage, "Add Tag", "Choose a tag to add to:", choices);
+				if(tag==null) {
+					showErrorDialog(stage, "Error", "Did not add a Tag.");
+					return;
+				}
+			}else {
+				//chose to make new tag
+				tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
+				if(tag==null) {
+					showErrorDialog(stage, "Error", "Did not add a Tag.");
+					return;
+				}
+				stateMachine.currentUser.uniqueTags.add(tag);
+			}
+		}
 		String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
+		if(value==null) {
+			showErrorDialog(stage, "Error", "Did not add a value.");
+			return;
+		}
 		picture.addTag(tag, value);
 	}
 	
@@ -191,10 +235,6 @@ public class AlbumController extends PhotosController {
 		String toRemove=showChoiceDialog(stage, "Remove Tag", "Choose a tag to remove:", choices);
 		String tag=toRemove.substring(0,toRemove.indexOf(":"));
 		String value=toRemove.substring(toRemove.indexOf("\n")+1);
-		/*
-		String tag=showInputDialog(stage, "Remove Tag", "Enter a tag to remove from:");
-		String value=showInputDialog(stage, "Remove Tag", "Enter the value to remove from tag \""+tag+"\":");
-		*/
 		picture.removeTag(tag, value);
 	}
 	

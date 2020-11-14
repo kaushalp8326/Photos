@@ -157,17 +157,13 @@ public class HomeController extends PhotosController {
 		String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
 		String tag=searchBy.substring(0,searchBy.indexOf(":"));
 		String value=searchBy.substring(searchBy.indexOf("\n")+1);
-		/*
-		String tag=showInputDialog(stage, "Search By Tag", "Enter a tag to search by:");
-		String value=showInputDialog(stage, "Search By Tag", "Enter a value for the tag \""+tag+"\":");
-		*/
 		for(Picture pic:pictures) {
 			if(pic.getTags().contains(tag+":\n"+value)) {
 				results.add(pic);
 			}
 		}
 				
-		Album searchResults=new Album("searchResults", results);
+		Album searchResults=new Album("Search Results", results);
 		return searchResults;
 	}
 	

@@ -57,7 +57,7 @@ public class SlideshowController extends PhotosController {
 		lblCaption.setText("Caption: " + pic.caption);
 		lblDateCaptured.setText("Date Captured: " + pic.getTimestamp()
 													.format(DateTimeFormatter.ofPattern("YYYY-MM-dd, h:mm:ss a")));
-		lblTags.setText("Tags: "+pic.printTags()); // TODO
+		lblTags.setText("Tags: "+pic.printTags());
 		lblPhotoIndex.setText((slide+1) + " of " + stateMachine.currentAlbum.getSize());
 		if(slide == 0) {
 			cmdFirstPhoto.setDisable(true);
