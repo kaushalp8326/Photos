@@ -1,5 +1,6 @@
 package view.controller;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Album;
 import model.Picture;
+import model.User;
 
 /**
  * Controller for the home screen.
@@ -164,7 +166,8 @@ public class HomeController extends PhotosController {
 				results.add(pic);
 			}
 		}
-		Album searchResults=new Album("searchResults", null, results);
+				
+		Album searchResults=new Album("searchResults", results);
 		return searchResults;
 	}
 	

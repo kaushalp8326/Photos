@@ -153,6 +153,11 @@ public class Album implements Serializable {
 		this.pictures.addAll(pictures);
 	}
 	
+	public Album(String name, List<Picture> pictures) throws IllegalArgumentException {
+		this.name=name;
+		this.pictures.addAll(pictures);
+	}
+	
 	public String toString() {
 		return name;
 	}

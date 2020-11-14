@@ -88,9 +88,23 @@ public class Picture implements Serializable {
 		}
 		Set<Entry<String, ArrayList<String>>> setOfTags = tags.entrySet();
 		for(Entry<String, ArrayList<String>> entry : setOfTags){
-            tagPairs.add(entry.getKey()+":\n"+entry.getValue());
+			for(int i=0; i<entry.getValue().size(); i++) {
+				tagPairs.add(entry.getKey()+":\n"+entry.getValue().get(i));
+			}
+            //tagPairs.add(entry.getKey()+":\n"+entry.getValue());
         }
 		return tagPairs;
+	}
+	
+	public String printTags() {
+		String ret="";
+		ArrayList<String> tagPairs=this.getTags();
+		for(String s:tagPairs) {
+			String tag=s.substring(0,s.indexOf(":"));
+			String value=s.substring(s.indexOf("\n")+1);
+			ret+=tag+": "+value+", ";
+		}
+		return ret;
 	}
 	
 	public void addTag(String tag, String value) {
