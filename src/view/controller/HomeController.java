@@ -159,9 +159,6 @@ public class HomeController extends PhotosController {
 			Album searchResults=new Album("Search Results", results);
 			return searchResults;
 		}
-		
-		
-		
 		ArrayList<String> operations=new ArrayList<String>();
 		operations.add("Single Tag");
 		if(choices.size()>1) {
@@ -210,20 +207,6 @@ public class HomeController extends PhotosController {
 		}
 		Album searchResults=new Album("Search Results", results);
 		return searchResults;
-		
-		
-		/*
-		String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
-		String tag=searchBy.substring(0,searchBy.indexOf(":"));
-		String value=searchBy.substring(searchBy.indexOf("\n")+1);
-		for(Picture pic:pictures) {
-			if(pic.getTags().contains(tag+":\n"+value)) {
-				results.add(pic);
-			}
-		}
-		Album searchResults=new Album("Search Results", results);
-		return searchResults;
-		*/
 	}
 	
 	@FXML private void processEvent(Event e) {
