@@ -146,6 +146,7 @@ public class HomeController extends PhotosController {
 	}
 	
 	public Album findPhotosByTag(ArrayList<Picture> pictures) {
+		//TODO AND/OR operations
 		HashSet<Picture> results=new HashSet<Picture>();
 		HashSet<String> choices = new HashSet<String>();
 		for(Picture pic:pictures) {
@@ -153,8 +154,65 @@ public class HomeController extends PhotosController {
 		}
 		if(choices.size()==0) {
 			//none of the photos have tags
-			//TODO error message
+			//TODO error message, show search results as empty list?
+			showErrorDialog(stage, "Error", "There are no photos with tags.");
+			Album searchResults=new Album("Search Results", results);
+			return searchResults;
 		}
+		
+		
+		
+		ArrayList<String> operations=new ArrayList<String>();
+		operations.add("Single Tag");
+		if(choices.size()>1) {
+			operations.add("Tag1 AND Tag2");
+			operations.add("Tag1 OR Tag2");
+		}
+		String decision=showChoiceDialog(stage, "Find photos by tag", "Choose a search option:", operations);
+		//TODO checking for cancel, show search results as empty list?
+		if(decision==null) {
+			showErrorDialog(stage, "Error", "Did not select a Tag.");
+			Album searchResults=new Album("Search Results", results);
+			return searchResults;
+		}
+		if(decision.equalsIgnoreCase("Single Tag")) {
+			String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
+			String tag=searchBy.substring(0,searchBy.indexOf(":"));
+			String value=searchBy.substring(searchBy.indexOf("\n")+1);
+			for(Picture pic:pictures) {
+				if(pic.getTags().contains(tag+":\n"+value)) {
+					results.add(pic);
+				}
+			}
+		}else {
+			String searchBy1=showChoiceDialog(stage, "Search By Tag", "Choose the first tag to search by:", choices);
+			String tag1=searchBy1.substring(0,searchBy1.indexOf(":"));
+			String value1=searchBy1.substring(searchBy1.indexOf("\n")+1);
+			HashSet<String> choicesWithoutDuplicate=(HashSet<String>) choices.clone();
+			choicesWithoutDuplicate.remove(searchBy1);
+			String searchBy2=showChoiceDialog(stage, "Search By Tag", "Choose the second tag to search by:", choicesWithoutDuplicate);
+			String tag2=searchBy2.substring(0,searchBy2.indexOf(":"));
+			String value2=searchBy2.substring(searchBy2.indexOf("\n")+1);
+			if(decision.equalsIgnoreCase("Tag1 AND Tag2")) {
+				for(Picture pic:pictures) {
+					if(pic.getTags().contains(tag1+":\n"+value1) && pic.getTags().contains(tag2+":\n"+value2)) {
+						results.add(pic);
+					}
+				}
+			}else {
+				//OR operation
+				for(Picture pic:pictures) {
+					if(pic.getTags().contains(tag1+":\n"+value1) || pic.getTags().contains(tag2+":\n"+value2)) {
+						results.add(pic);
+					}
+				}
+			}
+		}
+		Album searchResults=new Album("Search Results", results);
+		return searchResults;
+		
+		
+		/*
 		String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
 		String tag=searchBy.substring(0,searchBy.indexOf(":"));
 		String value=searchBy.substring(searchBy.indexOf("\n")+1);
@@ -165,6 +223,7 @@ public class HomeController extends PhotosController {
 		}
 		Album searchResults=new Album("Search Results", results);
 		return searchResults;
+		*/
 	}
 	
 	@FXML private void processEvent(Event e) {
