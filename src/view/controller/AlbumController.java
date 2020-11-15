@@ -203,7 +203,7 @@ public class AlbumController extends PhotosController {
 			ArrayList<String> existingOrNew=new ArrayList<String>();
 			existingOrNew.add("Existing tag");
 			existingOrNew.add("New tag");
-			String decision=showChoiceDialog(stage, "Add to an existing Tag, or create a new one?", "Choose an option:", existingOrNew);
+			String decision=showChoiceDialog(stage, "Add Tag", "Add to an existing Tag, or create a new one?", existingOrNew);
 			if(decision.equalsIgnoreCase("Existing tag")) {
 				HashSet<String> choices = stateMachine.currentUser.uniqueTags;
 				tag=showChoiceDialog(stage, "Add Tag", "Choose a tag to add to:", choices);

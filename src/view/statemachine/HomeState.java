@@ -87,7 +87,19 @@ public class HomeState extends PhotosState{
 			return stateMachine.albumState;
 			
 		}else if(b == homeController.cmdFindPhotosByDate) {
-			// TODO
+			ArrayList<Picture> pictures=new ArrayList<Picture>();
+			for(int i=0; i<homeController.lstAlbums.getItems().size(); i++) {
+				Album album=homeController.lstAlbums.getItems().get(i);
+				pictures.addAll(album.getPictures());
+			}
+			/*
+			stateMachine.currentAlbum=homeController.findPhotosByDate(pictures);
+			*/
+			return stateMachine.datePickerState;
+			/*
+			stateMachine.currentAlbum=DatePickerState.dateController.findPhotosByDate(pictures);
+			return stateMachine.albumState;
+			*/
 			
 		}else if(b == homeController.cmdLogout) {
 			try {	
