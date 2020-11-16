@@ -70,6 +70,9 @@ public class AlbumState extends PhotosState{
 			
 		}else if(b == albumController.cmdEditCaption) {
 			albumController.editCaption();
+			//reload album view
+			albumController.stage.close();
+			return stateMachine.albumState;
 			
 		}else if(b == albumController.cmdMovePhoto) {
 			albumController.movePhoto();

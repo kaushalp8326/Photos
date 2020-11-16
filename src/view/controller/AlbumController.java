@@ -143,8 +143,16 @@ public class AlbumController extends PhotosController {
 	 * Edits the caption of the selected {@code Picture}.
 	 */
 	public void editCaption() {
-		// TODO - some kind of validation that the list isn't empty
+		//check if the list is empty
+		if(lstPictures.getItems().size()==0) {
+			showErrorDialog(stage, "Error", "There are no photos in this album.");
+			return;
+		}
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		if(picture==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		String name = showInputDialog(stage, "Rename Photo", "Enter a new caption:");
 		if(name == null) {
 			return;
