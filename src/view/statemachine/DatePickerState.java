@@ -58,17 +58,25 @@ public class DatePickerState extends PhotosState{
 		Button b = (Button)lastEvent.getSource();
 		
 		if(b == dateController.cmdSearch) {
-			//TODO
 			ArrayList<Picture> pictures=new ArrayList<Picture>();
 			for(int i=0; i<HomeState.homeController.lstAlbums.getItems().size(); i++) {
 				Album album=HomeState.homeController.lstAlbums.getItems().get(i);
 				pictures.addAll(album.getPictures());
 			}
-			stateMachine.currentAlbum=dateController.findPhotosByDate(pictures);
-			return stateMachine.albumState;
-			
+
+			Album searchResults=dateController.findPhotosByDate(pictures);
+			if(searchResults!=null) {
+				stateMachine.currentAlbum=searchResults;
+				dateController.stage.close();
+				return stateMachine.albumState;
+			}
+			dateController.stage.close();
+			stateMachine.homeState.homeController.stage.close();
+			return stateMachine.homeState;
 			
 		}else if(b == dateController.cmdCancelSearch) {
+			dateController.stage.close();
+			stateMachine.homeState.homeController.stage.close();
 			return stateMachine.homeState;
 					
 		}

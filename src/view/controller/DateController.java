@@ -65,6 +65,12 @@ public class DateController extends PhotosController {
 			}
 		}
 		
+		if(results.size()==0) {
+			//none of the photos are in this range
+			showErrorDialog(stage, "Error", "There are no photos in this range.");
+			return null;
+		}
+		
 		Album searchResults=new Album("Search Results", results);
 		return searchResults;
 	}
