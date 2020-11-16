@@ -27,12 +27,18 @@ public class AdminController extends PhotosController {
 	@FXML public Button cmdDeleteUser;
 	@FXML public Button cmdLogout;
 	
-	// Observable list of usernames
+	/**
+	 * Observable list of usernames
+	 */
 	private ObservableList<String> olist;
-	// Sorted wrapper list
+	/**
+	 * Sorted wrapper list
+	 */
 	private ObservableList<String> usernames;
 	
-	// Selected list index
+	/**
+	 * Selected list index
+	 */
 	private int selectedIndex;
 	
 	/**

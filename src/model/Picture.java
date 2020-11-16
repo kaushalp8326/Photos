@@ -30,9 +30,6 @@ public class Picture implements Serializable {
 	
 	public String caption;
 	
-	// public ArrayList<T> tags;
-	// public HashMap<T,U> tags;
-	// TODO do we want a Tag class?
 	/**
 	 * Tags for a Picture.
 	 */
@@ -81,6 +78,10 @@ public class Picture implements Serializable {
 		return timestamp;
 	}
 	
+	/**
+	 * Get all the tags for a given picture.
+	 * @return ArrayList containing the pictures' tags in the format tag+":\n"+value.
+	 */
 	public ArrayList<String> getTags(){
 		ArrayList<String> tagPairs=new ArrayList<String>();
 		if(tags == null || tags.size()==0) {
@@ -91,11 +92,14 @@ public class Picture implements Serializable {
 			for(int i=0; i<entry.getValue().size(); i++) {
 				tagPairs.add(entry.getKey()+":\n"+entry.getValue().get(i));
 			}
-            //tagPairs.add(entry.getKey()+":\n"+entry.getValue());
         }
 		return tagPairs;
 	}
 	
+	/**
+	 * Pretty print method for tags. Used when printing tags for a picture in a slide show.
+	 * @return String used to print all the tags for a picture.
+	 */
 	public String printTags() {
 		String ret="";
 		ArrayList<String> tagPairs=this.getTags();
@@ -113,6 +117,11 @@ public class Picture implements Serializable {
 		return ret;
 	}
 	
+	/**
+	 * Adds a given tag to the picture.
+	 * @param tag Tag to add to (ex. Location)
+	 * @param value Tag value to add (ex. New York)
+	 */
 	public void addTag(String tag, String value) {
 		if(tags.get(tag)==null) {
 			ArrayList<String> toAdd=new ArrayList<String>();
@@ -130,10 +139,14 @@ public class Picture implements Serializable {
 		}
 	}
 	
+	/**
+	 * Removes a given tag from the picture.
+	 * @param tag Tag to remove from (ex. Location)
+	 * @param value Tag value to remove (ex. New York)
+	 */
 	public void removeTag(String tag, String value) {
 		if(tags.get(tag)==null) {
 			//tag was not present
-			//TODO error dialog
 		}else {
 			tags.get(tag).remove(value);
 		}

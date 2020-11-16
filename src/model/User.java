@@ -23,7 +23,9 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	// Data file path
+	/**
+	 * Data file path
+	 */
 	public String path;
 	
 	/**
@@ -36,10 +38,13 @@ public class User implements Serializable {
 	 */
 	protected ArrayList<Album> albums;
 	
+	/**
+	 * Unique tag names this user has used.
+	 */
 	public HashSet<String> uniqueTags=new HashSet<String>();
 	
 	/**
-	 * Get this user's username
+	 * Get this user's username.
 	 * @return The username.
 	 */
 	public String getName() {

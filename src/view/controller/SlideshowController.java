@@ -30,7 +30,9 @@ public class SlideshowController extends PhotosController {
 	
 	@FXML public ImageView imgPhoto;
 	
-	// Current "slide" in the slideshow
+	/**
+	 * Current "slide" in the slideshow
+	 */
 	public int slide;
 
 	/**

@@ -37,15 +37,16 @@ public class DateController extends PhotosController {
 	
 	@FXML public Button cmdSearch;
 	@FXML public Button cmdCancelSearch;
-		
-	/**
-	 * 
-	 */
+	
 	public void start() {
-		//TODO
 		return;
 	}
 	
+	/**
+	 * Search pictures owned by the user by a specified range of dates.
+	 * @param pictures All unique pictures owned by the user.
+	 * @return An album containing the search results, or null if there are none.
+	 */
 	public Album findPhotosByDate(ArrayList<Picture> pictures) {
 		HashSet<Picture> results=new HashSet<Picture>();
 		

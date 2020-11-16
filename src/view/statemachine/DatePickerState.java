@@ -19,6 +19,9 @@ public class DatePickerState extends PhotosState{
 	 */
 	private static DatePickerState instance = null;
 	
+	/**
+	 * Corresponding controller for this state
+	 */
 	public static DateController dateController;
 	
 	/**
@@ -29,7 +32,6 @@ public class DatePickerState extends PhotosState{
 	}
 	
 	public void enter() {
-		// TODO
 		// get FXML
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/fxml/search_by_date.fxml"));

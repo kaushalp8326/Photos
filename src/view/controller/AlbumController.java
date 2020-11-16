@@ -22,6 +22,12 @@ import javafx.scene.image.ImageView;
 import model.Album;
 import model.Picture;
 
+/**
+ * Controller for the album subsystem.
+ * @author John Hoban
+ * @author Kaushal Patel
+ *
+ */
 public class AlbumController extends PhotosController {
 
 	// FXML entities
@@ -38,12 +44,18 @@ public class AlbumController extends PhotosController {
 	@FXML public Button cmdCreateAlbumFromSearch;
 	@FXML public Button cmdClose;
 	
-	// List of pictures
+	/**
+	 * List of pictures
+	 */
 	private ObservableList<Picture> olist;
-	// Sorted wrapper list
+	/**
+	 * Sorted wrapper list
+	 */
 	private ObservableList<Picture> pictures;
 	
-	// Selected list index
+	/**
+	 * Selected list index
+	 */
 	private int selectedIndex;
 	
 	/**
@@ -186,6 +198,9 @@ public class AlbumController extends PhotosController {
 		album.addPicture(picture);
 	}
 	
+	/**
+	 * Add a tag-value pair to the selected photo.
+	 */
 	public void addTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
 		String tag;
@@ -229,12 +244,20 @@ public class AlbumController extends PhotosController {
 		picture.addTag(tag, value);
 	}
 	
+	/**
+	 * Remove a tag-value pair from the selected photo.
+	 */
 	public void removeTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
 		List<String> choices = picture.getTags();
+		if(choices.size()==0) {
+			//The photos has no tags to remove
+			showErrorDialog(stage, "Error", "There are no tags to remove.");
+			return;
+		}
 		String toRemove=showChoiceDialog(stage, "Remove Tag", "Choose a tag to remove:", choices);
+		//check for cancel
 		if(toRemove==null) {
-			//showErrorDialog(stage, "Error", "Did not select a Tag.");
 			return;
 		}
 		String tag=toRemove.substring(0,toRemove.indexOf(":"));
@@ -242,6 +265,9 @@ public class AlbumController extends PhotosController {
 		picture.removeTag(tag, value);
 	}
 	
+	/**
+	 * Create an album from the results of a search.
+	 */
 	public void createAlbumFromSearch() {
 		String name = showInputDialog(stage, "Rename Album", "Enter a name for the new album: ");
 		if(name == null) {

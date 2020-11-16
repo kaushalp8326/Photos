@@ -81,7 +81,6 @@ public class AlbumState extends PhotosState{
 			return stateMachine.slideshowState;
 			
 		}else if(b == albumController.cmdCreateAlbumFromSearch) {
-			// TODO
 			albumController.createAlbumFromSearch();
 			
 		}else if(b == albumController.cmdClose) {

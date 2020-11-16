@@ -31,6 +31,10 @@ public class Album implements Serializable {
 	 */
 	protected ArrayList<Picture> pictures = new ArrayList<Picture>();
 	
+	/**
+	 * Get this album's owner.
+	 * @return User instance that owns this album.
+	 */
 	public User getOwner() {
 		return owner;
 	}
@@ -158,7 +162,14 @@ public class Album implements Serializable {
 		this.pictures.addAll(pictures);
 	}
 	
-	public Album(String name, HashSet<Picture> pictures) throws IllegalArgumentException {
+	/**
+	 * Constructor for the album that gives it a name and also adds some pictures.
+	 * The album is not tied to a User instance.
+	 * Most useful when creating an album to represent a list of search results, that may or may not be saved as a new album.
+	 * @param name Name for the album.
+	 * @param pictures List of pictures that will be added to this album.
+	 */
+	public Album(String name, HashSet<Picture> pictures) {
 		this.name=name;
 		this.pictures.addAll(pictures);
 	}

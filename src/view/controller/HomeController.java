@@ -47,12 +47,18 @@ public class HomeController extends PhotosController {
 	
 	@FXML public ListView<Album> lstAlbums;
 	
-	// List of albums
+	/**
+	 * List of albums
+	 */
 	private ObservableList<Album> olist;
-	// Sorted wrapper list
+	/**
+	 * Sorted wrapper list
+	 */
 	private ObservableList<Album> albums;
 	
-	// Selected list index
+	/**
+	 * Selected list index
+	 */
 	private int selectedIndex;
 	
 	/**
@@ -148,6 +154,11 @@ public class HomeController extends PhotosController {
 		
 	}
 	
+	/**
+	 * Search pictures owned by the user by a specified tag, or the union or conjunction of two tags.
+	 * @param pictures All unique pictures owned by the user.
+	 * @return An album containing the search results, or null if there are none.
+	 */
 	public Album findPhotosByTag(ArrayList<Picture> pictures) {
 		HashSet<Picture> results=new HashSet<Picture>();
 		HashSet<String> choices = new HashSet<String>();
@@ -218,52 +229,6 @@ public class HomeController extends PhotosController {
 		Album searchResults=new Album("Search Results", results);
 		return searchResults;
 	}
-	
-	/*
-	public Album findPhotosByDate(ArrayList<Picture> pictures) {
-		HashSet<Picture> results=new HashSet<Picture>();
-		//TODO errors for bad input
-		//ask for search range
-		String start=showInputDialog(stage, "Search Photos In Range", "Enter a start date (mm/dd/yyyy):");
-		if(start==null) {
-			showErrorDialog(stage, "Error", "Did not enter a date.");
-			Album searchResults=new Album("Search Results", results);
-			return searchResults;
-		}
-		String end=showInputDialog(stage, "Search Photos In Range", "Enter an end date (mm/dd/yyyy):");
-		if(end==null) {
-			showErrorDialog(stage, "Error", "Did not enter a date.");
-			Album searchResults=new Album("Search Results", results);
-			return searchResults;
-		}
-		
-		int month=Integer.parseInt(start.substring(0, start.indexOf("/")));
-		start=start.substring(start.indexOf("/")+1);
-		int day=Integer.parseInt(start.substring(0, start.indexOf("/")));
-		start=start.substring(start.indexOf("/")+1);
-		int year=Integer.parseInt(start);
-		LocalDate startDate=LocalDate.of(year, month, day);
-		
-		month=Integer.parseInt(end.substring(0, end.indexOf("/")));
-		end=end.substring(end.indexOf("/")+1);
-		day=Integer.parseInt(end.substring(0, end.indexOf("/")));
-		end=end.substring(end.indexOf("/")+1);
-		year=Integer.parseInt(end);
-		LocalDate endDate=LocalDate.of(year, month, day);
-		
-		LocalDateTime dateStart=LocalDateTime.of(startDate, LocalTime.MIN);
-		LocalDateTime dateEnd=LocalDateTime.of(endDate, LocalTime.MAX);
-		
-		for(Picture pic:pictures) {
-			if((pic.getTimestamp().isEqual(dateStart) || pic.getTimestamp().isAfter(dateStart)) && (pic.getTimestamp().isBefore(dateEnd) || pic.getTimestamp().isEqual(dateEnd))) {
-				results.add(pic);
-			}
-		}
-		
-		Album searchResults=new Album("Search Results", results);
-		return searchResults;
-	}
-	*/
 	
 	@FXML private void processEvent(Event e) {
 		stateMachine.processEvent(e);
