@@ -128,7 +128,16 @@ public class HomeController extends PhotosController {
 	 * Delete the selected album.
 	 */
 	public void deleteAlbum() {
+		//check if the list is empty
+		if(lstAlbums.getItems().size()==0) {
+			showErrorDialog(stage, "Error", "There are no albums to delete.");
+			return;
+		}
 		Album album = lstAlbums.getSelectionModel().getSelectedItem();
+		if(album==null) {
+			showErrorDialog(stage, "Error", "Please select an album before preceding.");
+			return;
+		}
 		ButtonType response = showConfirmationDialog(stage, "Delete Album", "Are you sure you want to delete album \"" + album.getName() + "\"?");
 		if(response == null || response == ButtonType.CANCEL) {
 			return;

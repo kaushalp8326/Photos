@@ -131,6 +131,10 @@ public class AlbumController extends PhotosController {
 	 */
 	public void removePhoto() {
 		Picture target = lstPictures.getSelectionModel().getSelectedItem();
+		if(target==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		ButtonType response = showConfirmationDialog(stage, "Delete Photo", "Are you sure you want to delete this photo?");
 		if(response == null || response == ButtonType.CANCEL) {
 			return;
@@ -173,6 +177,10 @@ public class AlbumController extends PhotosController {
 		
 		// Choose from any album except the current one
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		if(picture==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		List<Album> choices = stateMachine.currentUser.getAlbums().stream()
 				.filter(a -> a != stateMachine.currentAlbum)
 				.collect(Collectors.toList());
@@ -197,6 +205,10 @@ public class AlbumController extends PhotosController {
 		
 		// Choose from any album except the current one
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		if(picture==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		List<Album> choices = stateMachine.currentUser.getAlbums().stream()
 				.filter(a -> a != stateMachine.currentAlbum)
 				.collect(Collectors.toList());
@@ -212,6 +224,10 @@ public class AlbumController extends PhotosController {
 	 */
 	public void addTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		if(picture==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		String tag;
 		if(stateMachine.currentUser.uniqueTags==null) {
 			//there are no existing tags to choose from
@@ -289,6 +305,10 @@ public class AlbumController extends PhotosController {
 	 */
 	public void removeTag() {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
+		if(picture==null) {
+			showErrorDialog(stage, "Error", "Please select an image before preceding.");
+			return;
+		}
 		List<String> choices = picture.getTags();
 		if(choices.size()==0) {
 			//The photos has no tags to remove
