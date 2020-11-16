@@ -33,7 +33,7 @@ public class DateController extends PhotosController {
 
 	// FXML entities
 	@FXML public DatePicker datStartDateField;
-	@FXML public DatePicker dateEndDateField;
+	@FXML public DatePicker datEndDateField;
 	
 	@FXML public Button cmdSearch;
 	@FXML public Button cmdCancelSearch;
@@ -53,7 +53,7 @@ public class DateController extends PhotosController {
 		if(startDate==null) {
 			startDate=LocalDate.MIN;
 		}
-		LocalDate endDate=dateEndDateField.getValue();
+		LocalDate endDate=datEndDateField.getValue();
 		if(endDate==null) {
 			endDate=LocalDate.MAX;
 		}

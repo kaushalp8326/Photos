@@ -83,7 +83,7 @@ public class Picture implements Serializable {
 	
 	public ArrayList<String> getTags(){
 		ArrayList<String> tagPairs=new ArrayList<String>();
-		if(tags.size()==0) {
+		if(tags == null || tags.size()==0) {
 			return tagPairs;
 		}
 		Set<Entry<String, ArrayList<String>>> setOfTags = tags.entrySet();

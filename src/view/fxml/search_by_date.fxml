@@ -11,7 +11,7 @@
       <DatePicker fx:id="datEndDateField" layoutX="92.0" layoutY="52.0" />
       <Label layoutX="26.0" layoutY="25.0" text="Start Date:" />
       <Label layoutX="28.0" layoutY="56.0" text="End Date:" />
-      <Button fx:id="cmdCancelSearch" layoutX="26.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Cancel" />
-      <Button fx:id="cmdSearch" layoutX="159.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Search" />
+      <Button fx:id="cmdCancelSearch" layoutX="26.0" layoutY="87.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="108.0" text="Cancel" />
+      <Button fx:id="cmdSearch" layoutX="159.0" layoutY="87.0" mnemonicParsing="false" onAction="#processEvent" prefHeight="25.0" prefWidth="108.0" text="Search" />
    </children>
 </AnchorPane>
