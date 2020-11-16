@@ -205,43 +205,74 @@ public class AlbumController extends PhotosController {
 		Picture picture = lstPictures.getSelectionModel().getSelectedItem();
 		String tag;
 		if(stateMachine.currentUser.uniqueTags==null) {
-			//there are no existing tags to  choose from
+			//there are no existing tags to choose from
 			tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
 			if(tag==null) {
+				return;
+			}
+			if(tag.equalsIgnoreCase("")) {
 				showErrorDialog(stage, "Error", "Did not add a Tag.");
+				return;
+			}
+			String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
+			if(value==null) {
+				return;
+			}
+			if(value.equalsIgnoreCase("")) {
+				showErrorDialog(stage, "Error", "Did not add a value.");
 				return;
 			}
 			stateMachine.currentUser.uniqueTags=new HashSet<String>();
 			stateMachine.currentUser.uniqueTags.add(tag);
+			picture.addTag(tag, value);
+			return;
 		}else {
 			//ask whether to get from existing list or make a new tag
 			ArrayList<String> existingOrNew=new ArrayList<String>();
 			existingOrNew.add("Existing tag");
 			existingOrNew.add("New tag");
 			String decision=showChoiceDialog(stage, "Add Tag", "Add to an existing Tag, or create a new one?", existingOrNew);
-			if(decision.equalsIgnoreCase("Existing tag")) {
+			if(decision==null) {
+				return;
+			}else if(decision.equalsIgnoreCase("Existing tag")) {
 				HashSet<String> choices = stateMachine.currentUser.uniqueTags;
 				tag=showChoiceDialog(stage, "Add Tag", "Choose a tag to add to:", choices);
 				if(tag==null) {
-					showErrorDialog(stage, "Error", "Did not add a Tag.");
 					return;
 				}
+				String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
+				if(value==null) {
+					return;
+				}
+				if(value.equalsIgnoreCase("")) {
+					showErrorDialog(stage, "Error", "Did not add a value.");
+					return;
+				}
+				picture.addTag(tag, value);
+				return;
 			}else {
 				//chose to make new tag
 				tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
 				if(tag==null) {
+					return;
+				}
+				if(tag.equalsIgnoreCase("")) {
 					showErrorDialog(stage, "Error", "Did not add a Tag.");
 					return;
 				}
+				String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
+				if(value==null) {
+					return;
+				}
+				if(value.equalsIgnoreCase("")) {
+					showErrorDialog(stage, "Error", "Did not add a value.");
+					return;
+				}
 				stateMachine.currentUser.uniqueTags.add(tag);
+				picture.addTag(tag, value);
+				return;
 			}
 		}
-		String value=showInputDialog(stage, "Add Tag", "Enter a value for the tag \""+tag+"\":");
-		if(value==null) {
-			showErrorDialog(stage, "Error", "Did not add a value.");
-			return;
-		}
-		picture.addTag(tag, value);
 	}
 	
 	/**
