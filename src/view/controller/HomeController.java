@@ -156,10 +156,10 @@ public class HomeController extends PhotosController {
 		}
 		if(choices.size()==0) {
 			//none of the photos have tags
-			//TODO error message: show search results as empty list?
 			showErrorDialog(stage, "Error", "There are no photos with tags.");
-			Album searchResults=new Album("Search Results", results);
-			return searchResults;
+			//Album searchResults=new Album("Search Results", results);
+			//return searchResults;
+			return null;
 		}
 		ArrayList<String> operations=new ArrayList<String>();
 		operations.add("Single Tag");
@@ -168,14 +168,19 @@ public class HomeController extends PhotosController {
 			operations.add("Tag1 OR Tag2");
 		}
 		String decision=showChoiceDialog(stage, "Find photos by tag", "Choose a search option:", operations);
-		//TODO checking for cancel, show search results as empty list?
+		//checking for cancel
 		if(decision==null) {
-			showErrorDialog(stage, "Error", "Did not select a Tag.");
-			Album searchResults=new Album("Search Results", results);
-			return searchResults;
+			//showErrorDialog(stage, "Error", "Did not select a Tag.");
+			//Album searchResults=new Album("Search Results", results);
+			//return searchResults;
+			return null;
 		}
 		if(decision.equalsIgnoreCase("Single Tag")) {
 			String searchBy=showChoiceDialog(stage, "Search By Tag", "Choose a tag to search by:", choices);
+			//checking for cancel
+			if(searchBy==null) {
+				return null;
+			}
 			String tag=searchBy.substring(0,searchBy.indexOf(":"));
 			String value=searchBy.substring(searchBy.indexOf("\n")+1);
 			for(Picture pic:pictures) {
@@ -185,11 +190,19 @@ public class HomeController extends PhotosController {
 			}
 		}else {
 			String searchBy1=showChoiceDialog(stage, "Search By Tag", "Choose the first tag to search by:", choices);
+			//checking for cancel
+			if(searchBy1==null) {
+				return null;
+			}
 			String tag1=searchBy1.substring(0,searchBy1.indexOf(":"));
 			String value1=searchBy1.substring(searchBy1.indexOf("\n")+1);
 			HashSet<String> choicesWithoutDuplicate=(HashSet<String>) choices.clone();
 			choicesWithoutDuplicate.remove(searchBy1);
 			String searchBy2=showChoiceDialog(stage, "Search By Tag", "Choose the second tag to search by:", choicesWithoutDuplicate);
+			//checking for cancel
+			if(searchBy2==null) {
+				return null;
+			}
 			String tag2=searchBy2.substring(0,searchBy2.indexOf(":"));
 			String value2=searchBy2.substring(searchBy2.indexOf("\n")+1);
 			if(decision.equalsIgnoreCase("Tag1 AND Tag2")) {
