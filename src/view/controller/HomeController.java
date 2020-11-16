@@ -141,8 +141,16 @@ public class HomeController extends PhotosController {
 	 * Rename the selected album, as long as the name is not a duplicate.
 	 */
 	public void renameAlbum() {
-		// TODO - some kind of validation that the list isn't empty
+		//check if the list is empty
+		if(lstAlbums.getItems().size()==0) {
+			showErrorDialog(stage, "Error", "There are no albums to rename.");
+			return;
+		}
 		Album album = lstAlbums.getSelectionModel().getSelectedItem();
+		if(album==null) {
+			showErrorDialog(stage, "Error", "Please select an album before preceding.");
+			return;
+		}
 		String name = showInputDialog(stage, "Rename Album", "Enter a new name for album \"" + album.getName() + "\": ");
 		if(name == null) {
 			return;
