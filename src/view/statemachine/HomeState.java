@@ -83,8 +83,6 @@ public class HomeState extends PhotosState{
 				Album album=homeController.lstAlbums.getItems().get(i);
 				pictures.addAll(album.getPictures());
 			}
-			//stateMachine.currentAlbum=homeController.findPhotosByTag(pictures);
-			//return stateMachine.albumState;
 			Album searchResults=homeController.findPhotosByTag(pictures);
 			if(searchResults!=null) {
 				stateMachine.currentAlbum=searchResults;
@@ -97,14 +95,7 @@ public class HomeState extends PhotosState{
 				Album album=homeController.lstAlbums.getItems().get(i);
 				pictures.addAll(album.getPictures());
 			}
-			/*
-			stateMachine.currentAlbum=homeController.findPhotosByDate(pictures);
-			*/
 			return stateMachine.datePickerState;
-			/*
-			stateMachine.currentAlbum=DatePickerState.dateController.findPhotosByDate(pictures);
-			return stateMachine.albumState;
-			*/
 			
 		}else if(b == homeController.cmdLogout) {
 			try {	

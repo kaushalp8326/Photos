@@ -157,8 +157,6 @@ public class HomeController extends PhotosController {
 		if(choices.size()==0) {
 			//none of the photos have tags
 			showErrorDialog(stage, "Error", "There are no photos with tags.");
-			//Album searchResults=new Album("Search Results", results);
-			//return searchResults;
 			return null;
 		}
 		ArrayList<String> operations=new ArrayList<String>();
@@ -170,9 +168,6 @@ public class HomeController extends PhotosController {
 		String decision=showChoiceDialog(stage, "Find photos by tag", "Choose a search option:", operations);
 		//checking for cancel
 		if(decision==null) {
-			//showErrorDialog(stage, "Error", "Did not select a Tag.");
-			//Album searchResults=new Album("Search Results", results);
-			//return searchResults;
 			return null;
 		}
 		if(decision.equalsIgnoreCase("Single Tag")) {
