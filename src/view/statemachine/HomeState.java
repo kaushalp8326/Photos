@@ -68,10 +68,11 @@ public class HomeState extends PhotosState{
 			homeController.createAlbum();
 			
 		}else if(b == homeController.cmdRenameAlbum) {
-			homeController.renameAlbum();
-			//reload home view
-			homeController.stage.close();
-			return stateMachine.homeState;
+			if(homeController.renameAlbum()) {
+				//reload home view
+				homeController.stage.close();
+				return stateMachine.homeState;
+			}
 			
 		}else if(b == homeController.cmdDeleteAlbum) {
 			homeController.deleteAlbum();
