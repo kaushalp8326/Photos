@@ -229,7 +229,7 @@ public class AlbumController extends PhotosController {
 			return;
 		}
 		String tag;
-		if(stateMachine.currentUser.uniqueTags==null) {
+		if(stateMachine.currentUser.uniqueTags==null || stateMachine.currentUser.uniqueTags.size()==0) {
 			//there are no existing tags to choose from
 			tag=showInputDialog(stage, "Add Tag", "Enter a tag name:");
 			if(tag==null) {
