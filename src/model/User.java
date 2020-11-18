@@ -73,7 +73,7 @@ public class User implements Serializable {
 	
 	/**
 	 * Deletes an album from the user's collection.
-	 * @param album
+	 * @param album The album to be deleted.
 	 * @return {@code true} if delete was successful, {@code false} otherwise.
 	 */
 	public boolean deleteAlbum(Album album) {

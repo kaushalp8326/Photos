@@ -148,6 +148,7 @@ public class HomeController extends PhotosController {
 	
 	/**
 	 * Rename the selected album, as long as the name is not a duplicate.
+	 * @return Whether the renaming was successful.
 	 */
 	public boolean renameAlbum() {
 		//check if the list is empty

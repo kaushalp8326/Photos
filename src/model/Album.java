@@ -136,7 +136,7 @@ public class Album implements Serializable {
 	 * Base constructor for the album. Gives the album a name without adding any pictures.
 	 * Doesn't allow for two albums owned by the same user to have the same name.
 	 * @param name Name for the album.
-	 * @param user The album's owner.
+	 * @param owner The album's owner.
 	 * @throws IllegalArgumentException if an existing album owned by the same user has this name.
 	 */
 	protected Album(String name, User owner) throws IllegalArgumentException {
@@ -154,6 +154,7 @@ public class Album implements Serializable {
 	 * Constructor for the album that gives it a name and also adds some pictures.
 	 * Most useful when creating an album from a list of search results.
 	 * @param name Name for the album.
+	 * @param owner The album's owner.
 	 * @param pictures List of pictures that will be added to this album.
 	 * @throws IllegalArgumentException if an existing album owned by the same user has this name.
 	 */

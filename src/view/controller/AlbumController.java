@@ -145,6 +145,7 @@ public class AlbumController extends PhotosController {
 	
 	/**
 	 * Edits the caption of the selected {@code Picture}.
+	 * @return Whether the edit was successful.
 	 */
 	public boolean editCaption() {
 		//check if the list is empty

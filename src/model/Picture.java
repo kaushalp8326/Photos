@@ -39,6 +39,8 @@ public class Picture implements Serializable {
 	
 	/**
 	 * Picture constructor. Loads the image from the file system given a path.
+	 * @param path The picture's filepath.
+	 * @throws FileNotFoundException if the given filepath doesn't exist.
 	 */
 	public Picture(String path) throws FileNotFoundException {
 		this.path = path;

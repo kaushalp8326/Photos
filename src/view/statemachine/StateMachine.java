@@ -73,6 +73,7 @@ public class StateMachine {
 	
 	/**
 	 * Get the single state machine instance.
+	 * @return An instance of this class.
 	 */
 	public static StateMachine getInstance() {
 		if(instance == null) {
