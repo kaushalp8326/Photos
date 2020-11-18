@@ -171,6 +171,20 @@ public class HomeController extends PhotosController {
 		return true;
 	}
 	
+	public boolean openAlbum() {
+		//check if the list is empty
+		if(lstAlbums.getItems().size()==0) {
+			showErrorDialog(stage, "Error", "There are no albums to open.");
+			return false;
+		}
+		Album album = lstAlbums.getSelectionModel().getSelectedItem();
+		if(album==null) {
+			showErrorDialog(stage, "Error", "Please select an album before preceding.");
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Search pictures owned by the user by a specified tag, or the union or conjunction of two tags.
 	 * @param pictures All unique pictures owned by the user.

@@ -78,8 +78,10 @@ public class HomeState extends PhotosState{
 			homeController.deleteAlbum();
 			
 		}else if(b == homeController.cmdOpenAlbum) {
-			stateMachine.currentAlbum = homeController.lstAlbums.getSelectionModel().getSelectedItem();
-			return stateMachine.albumState;
+			if(homeController.openAlbum()) {
+				stateMachine.currentAlbum = homeController.lstAlbums.getSelectionModel().getSelectedItem();
+				return stateMachine.albumState;
+			}
 			
 		}else if(b == homeController.cmdFindPhotosByTag) {
 			ArrayList<Picture> pictures=new ArrayList<Picture>();
