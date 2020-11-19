@@ -87,7 +87,7 @@ public class SlideshowState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static SlideshowState getInstance() {
+	protected static SlideshowState getInstance() {
 		if(instance == null) {
 			instance = new SlideshowState();
 		}

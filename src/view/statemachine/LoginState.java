@@ -30,7 +30,7 @@ public class LoginState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static LoginState getInstance() {
+	protected static LoginState getInstance() {
 		if(instance == null) {
 			instance = new LoginState();
 		}

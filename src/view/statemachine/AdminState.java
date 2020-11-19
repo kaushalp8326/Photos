@@ -26,7 +26,7 @@ public class AdminState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static AdminState getInstance() {
+	protected static AdminState getInstance() {
 		if(instance == null) {
 			instance = new AdminState();
 		}

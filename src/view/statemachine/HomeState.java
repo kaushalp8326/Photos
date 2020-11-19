@@ -127,7 +127,7 @@ public class HomeState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static HomeState getInstance() {
+	protected static HomeState getInstance() {
 		if(instance == null) {
 			instance = new HomeState();
 		}

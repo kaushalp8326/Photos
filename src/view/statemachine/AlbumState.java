@@ -100,7 +100,7 @@ public class AlbumState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static AlbumState getInstance() {
+	protected static AlbumState getInstance() {
 		if(instance == null) {
 			instance = new AlbumState();
 		}

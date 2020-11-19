@@ -91,7 +91,7 @@ public class DatePickerState extends PhotosState{
 	 * 
 	 * @return Singleton instance
 	 */
-	public static DatePickerState getInstance() {
+	protected static DatePickerState getInstance() {
 		if(instance == null) {
 			instance = new DatePickerState();
 		}
